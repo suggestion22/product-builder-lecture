@@ -12,6 +12,7 @@
         "generators.html#categories": "Categories",
         "favorites.html": "Favorites",
         "blog.html": "Blog",
+        "editorial-policy.html": "Editorial Policy",
         "about.html": "About",
         "contact.html": "Contact"
       },
@@ -121,6 +122,7 @@
         "generators.html#categories": "카테고리",
         "favorites.html": "즐겨찾기",
         "blog.html": "블로그",
+        "editorial-policy.html": "편집 정책",
         "about.html": "소개",
         "contact.html": "문의"
       },
@@ -230,6 +232,7 @@
         "generators.html#categories": "カテゴリー",
         "favorites.html": "お気に入り",
         "blog.html": "ブログ",
+        "editorial-policy.html": "編集ポリシー",
         "about.html": "概要",
         "contact.html": "お問い合わせ"
       },

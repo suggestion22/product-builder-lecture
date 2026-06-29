@@ -81,6 +81,37 @@
         Business: "Business",
         Fantasy: "Fantasy",
         Lifestyle: "Lifestyle"
+      },
+      generators: {
+        gaming: ["Gamertag Generator", "Create short, sharp, energetic names for competitive games, clans, and online profiles."],
+        youtube: ["YouTube Name Generator", "Find creator-style channel names that feel memorable, flexible, and easy to brand."],
+        business: ["Business Name Generator", "Generate clean, brandable names for startups, products, studios, agencies, and small businesses."],
+        fantasy: ["Fantasy Name Generator", "Create mythical and worldbuilding-style names for characters, places, clans, kingdoms, and artifacts."],
+        pet: ["Pet Name Generator", "Find cute, friendly, everyday names for dogs, cats, small pets, and playful projects."]
+      },
+      staticCards: {
+        categories: [
+          ["Gaming", "Cool handles and player tags"],
+          ["Creator", "Channel and creator names"],
+          ["Business", "Brandable startup names"],
+          ["Fantasy", "Worlds, characters, and lore"],
+          ["Lifestyle", "Friendly pet and project names"]
+        ],
+        steps: [
+          ["Choose a category", "Pick the generator closest to your naming goal."],
+          ["Add your style", "Use keywords, tone, and length to guide the output."],
+          ["Generate and save names", "Copy favorites or save them locally for later review."]
+        ],
+        guides: [
+          ["Guide", "How to choose a memorable name", "A practical framework for making names easy to say, easy to remember, and flexible enough for future ideas.", "Read guide"],
+          ["Checklist", "Brand name validation checklist", "Use this checklist before you commit to a business, product, channel, or community name.", "Open checklist"],
+          ["Creator names", "Creator naming strategy", "Understand when to use a personal name, niche keyword, invented word, or studio-style identity.", "Explore strategy"]
+        ],
+        blog: [
+          ["Naming fundamentals", "How to choose a memorable name", "Learn a simple scoring method for clarity, sound, recall, flexibility, and distinctiveness.", "Read the guide"],
+          ["Brand safety", "Brand name validation checklist", "A pre-launch review process for domain checks, search conflicts, pronunciation, and audience fit.", "Open checklist"],
+          ["Creator strategy", "Creator naming strategy", "Compare personal brands, niche names, studio names, and invented names before choosing a channel identity.", "Explore strategy"]
+        ]
       }
     },
     ko: {
@@ -159,6 +190,37 @@
         Business: "비즈니스",
         Fantasy: "판타지",
         Lifestyle: "라이프스타일"
+      },
+      generators: {
+        gaming: ["게이머태그 생성기", "경쟁 게임, 클랜, 온라인 프로필에 어울리는 짧고 강한 이름을 만듭니다."],
+        youtube: ["유튜브 이름 생성기", "기억하기 쉽고 브랜드화하기 좋은 크리에이터형 채널 이름을 찾아보세요."],
+        business: ["비즈니스 이름 생성기", "스타트업, 제품, 스튜디오, 에이전시, 소규모 비즈니스를 위한 깔끔한 브랜드 이름을 생성합니다."],
+        fantasy: ["판타지 이름 생성기", "캐릭터, 장소, 클랜, 왕국, 유물에 어울리는 신화적이고 세계관 있는 이름을 만듭니다."],
+        pet: ["반려동물 이름 생성기", "강아지, 고양이, 작은 반려동물과 귀여운 프로젝트에 어울리는 친근한 이름을 찾아보세요."]
+      },
+      staticCards: {
+        categories: [
+          ["게임", "멋진 핸들과 플레이어 태그"],
+          ["크리에이터", "채널과 크리에이터 이름"],
+          ["비즈니스", "브랜드화하기 좋은 스타트업 이름"],
+          ["판타지", "세계관, 캐릭터, 설정 이름"],
+          ["라이프스타일", "친근한 반려동물과 프로젝트 이름"]
+        ],
+        steps: [
+          ["카테고리 선택", "목표에 가장 가까운 이름 생성기를 고르세요."],
+          ["스타일 추가", "키워드, 톤, 길이로 결과 방향을 조정하세요."],
+          ["생성하고 저장", "마음에 드는 이름을 복사하거나 로컬에 저장하세요."]
+        ],
+        guides: [
+          ["가이드", "기억에 남는 이름 고르는 법", "말하기 쉽고 기억하기 쉬우며 앞으로의 아이디어에도 유연한 이름을 고르는 실전 기준입니다.", "가이드 읽기"],
+          ["체크리스트", "브랜드 이름 검증 체크리스트", "비즈니스, 제품, 채널, 커뮤니티 이름을 확정하기 전에 확인해야 할 항목입니다.", "체크리스트 보기"],
+          ["크리에이터 이름", "크리에이터 네이밍 전략", "개인 이름, 니치 키워드, 조어, 스튜디오형 정체성을 언제 써야 하는지 비교합니다.", "전략 보기"]
+        ],
+        blog: [
+          ["네이밍 기본기", "기억에 남는 이름 고르는 법", "명확성, 소리, 기억성, 확장성, 차별성을 평가하는 간단한 방법을 배웁니다.", "가이드 읽기"],
+          ["브랜드 안전성", "브랜드 이름 검증 체크리스트", "도메인, 검색 충돌, 발음, 대상 고객 적합성을 출시 전에 검토하는 과정입니다.", "체크리스트 보기"],
+          ["크리에이터 전략", "크리에이터 네이밍 전략", "채널 정체성을 고르기 전에 개인 브랜드, 니치 이름, 스튜디오 이름, 조어를 비교합니다.", "전략 보기"]
+        ]
       }
     },
     ja: {
@@ -237,6 +299,37 @@
         Business: "ビジネス",
         Fantasy: "ファンタジー",
         Lifestyle: "ライフスタイル"
+      },
+      generators: {
+        gaming: ["ゲーマータグジェネレーター", "対戦ゲーム、クラン、オンラインプロフィール向けの短く印象的な名前を作成します。"],
+        youtube: ["YouTube名前ジェネレーター", "覚えやすく、ブランド化しやすいクリエイター向けチャンネル名を探せます。"],
+        business: ["ビジネス名ジェネレーター", "スタートアップ、商品、スタジオ、代理店、小規模ビジネス向けの洗練された名前を生成します。"],
+        fantasy: ["ファンタジー名前ジェネレーター", "キャラクター、場所、クラン、王国、アーティファクト向けの神話的な名前を作成します。"],
+        pet: ["ペット名前ジェネレーター", "犬、猫、小さなペット、かわいいプロジェクトに合う親しみやすい名前を探せます。"]
+      },
+      staticCards: {
+        categories: [
+          ["ゲーム", "クールなハンドル名とプレイヤータグ"],
+          ["クリエイター", "チャンネル名とクリエイター名"],
+          ["ビジネス", "ブランド化しやすいスタートアップ名"],
+          ["ファンタジー", "世界観、キャラクター、設定名"],
+          ["ライフスタイル", "親しみやすいペットとプロジェクト名"]
+        ],
+        steps: [
+          ["カテゴリーを選ぶ", "目的に最も近い名前ジェネレーターを選びます。"],
+          ["スタイルを追加", "キーワード、トーン、長さで出力の方向を調整します。"],
+          ["生成して保存", "気に入った名前をコピーしたりローカルに保存できます。"]
+        ],
+        guides: [
+          ["ガイド", "覚えやすい名前の選び方", "言いやすく、覚えやすく、将来のアイデアにも対応できる名前を選ぶ実践的な基準です。", "ガイドを読む"],
+          ["チェックリスト", "ブランド名検証チェックリスト", "ビジネス、商品、チャンネル、コミュニティ名を決める前に確認する項目です。", "チェックリストを見る"],
+          ["クリエイター名", "クリエイターのネーミング戦略", "個人名、ニッチキーワード、造語、スタジオ型の名前をいつ使うべきか比較します。", "戦略を見る"]
+        ],
+        blog: [
+          ["ネーミングの基本", "覚えやすい名前の選び方", "明確さ、音、記憶しやすさ、柔軟性、独自性を評価する簡単な方法を学びます。", "ガイドを読む"],
+          ["ブランド安全性", "ブランド名検証チェックリスト", "ドメイン、検索上の衝突、発音、対象読者との適合性を公開前に確認する流れです。", "チェックリストを見る"],
+          ["クリエイター戦略", "クリエイターのネーミング戦略", "チャンネルの identity を決める前に、個人ブランド、ニッチ名、スタジオ名、造語を比較します。", "戦略を見る"]
+        ]
       }
     }
   };
@@ -265,14 +358,15 @@
 
   function createGeneratorCard(generator) {
     const copy = getCopy();
+    const translated = copy.generators[generator.slug] || [generator.title, generator.description];
     const card = document.createElement("article");
     card.className = "generator-card";
     card.dataset.category = generator.category;
     card.innerHTML = `
       <div class="card-icon" aria-hidden="true">${getIcon(generator.slug)}</div>
       <p class="card-kicker">${localizeCategory(generator.category)}</p>
-      <h3>${generator.title}</h3>
-      <p>${generator.description}</p>
+      <h3>${translated[0]}</h3>
+      <p>${translated[1]}</p>
       <a class="text-link" href="generator.html?type=${generator.slug}">${copy.ui.openGenerator}</a>
     `;
     return card;
@@ -334,6 +428,44 @@
       if (attr) node.setAttribute(attr, value);
       else node.textContent = value;
     });
+  }
+
+  function translateStaticCards() {
+    const copy = getCopy();
+
+    document.querySelectorAll(".category-card").forEach((card, index) => {
+      const text = copy.staticCards.categories[index];
+      if (!text) return;
+      card.querySelector("strong").textContent = text[0];
+      card.querySelector("small").textContent = text[1];
+    });
+
+    document.querySelectorAll(".step-card").forEach((card, index) => {
+      const text = copy.staticCards.steps[index];
+      if (!text) return;
+      card.querySelector("h3").textContent = text[0];
+      card.querySelector("p").textContent = text[1];
+    });
+
+    document.querySelectorAll("a[href='naming-guide.html']").forEach((link) => translateGuideLinkCard(link, 0));
+    document.querySelectorAll("a[href='brand-name-checklist.html']").forEach((link) => translateGuideLinkCard(link, 1));
+    document.querySelectorAll("a[href='creator-name-strategy.html']").forEach((link) => translateGuideLinkCard(link, 2));
+  }
+
+  function translateGuideLinkCard(link, index) {
+    const copy = getCopy();
+    const card = link.closest(".generator-card");
+    if (!card) return;
+    const source = window.location.pathname.endsWith("blog.html") ? copy.staticCards.blog : copy.staticCards.guides;
+    const text = source[index];
+    if (!text) return;
+    const kicker = card.querySelector(".card-kicker");
+    const heading = card.querySelector("h2, h3");
+    const description = card.querySelector("p:not(.card-kicker)");
+    if (kicker) kicker.textContent = text[0];
+    if (heading) heading.textContent = text[1];
+    if (description) description.textContent = text[2];
+    link.textContent = text[3];
   }
 
   function renderPopular() {
@@ -436,6 +568,7 @@
   setupLanguage();
   translateNavigation();
   translatePageText();
+  translateStaticCards();
   renderPopular();
   renderGeneratorList();
   renderFavoritesPage();

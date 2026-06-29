@@ -6,7 +6,8 @@
   const generator = generators.find((item) => item.slug === type) || generators[0];
   const initialKeyword = params.get("q") || "";
   const lang = localStorage.getItem("nameforge-language") || "en";
-  const copy = {
+
+  const ui = {
     en: {
       keyword: "Keyword",
       style: "Style",
@@ -24,7 +25,8 @@
       copy: "Copy",
       copied: "Copied",
       favorite: "Favorite",
-      saved: "Saved"
+      saved: "Saved",
+      meaning: (name, tone, category, seed) => `${name} suggests a ${tone.toLowerCase()} ${category.toLowerCase()} identity shaped around ${seed} energy.`
     },
     ko: {
       keyword: "키워드",
@@ -43,7 +45,8 @@
       copy: "복사",
       copied: "복사됨",
       favorite: "저장",
-      saved: "저장됨"
+      saved: "저장됨",
+      meaning: (name, tone, category, seed) => `${name}은 ${seed}의 분위기를 바탕으로 한 ${tone} 느낌의 ${category} 이름입니다.`
     },
     ja: {
       keyword: "キーワード",
@@ -62,7 +65,89 @@
       copy: "コピー",
       copied: "コピー済み",
       favorite: "保存",
-      saved: "保存済み"
+      saved: "保存済み",
+      meaning: (name, tone, category, seed) => `${name}は、${seed}の雰囲気をもとにした${tone}印象の${category}向けネームです。`
+    }
+  }[lang] || {};
+
+  const localized = {
+    en: {
+      categories: { Gaming: "Gaming", Creator: "Creator", Business: "Business", Fantasy: "Fantasy", Lifestyle: "Lifestyle" },
+      bestFor: { gaming: "game profiles and clans", youtube: "creator channels", business: "brands and products", fantasy: "characters and worlds", pet: "pets and friendly projects" },
+      styles: {
+        gaming: ["Sharp", "Cyber", "Arcade", "Elite"],
+        youtube: ["Studio", "Personal", "Viral", "Editorial"],
+        business: ["Modern", "Premium", "Minimal", "Invented"],
+        fantasy: ["Elven", "Ancient", "Dark", "Heroic"],
+        pet: ["Cute", "Classic", "Foodie", "Tiny"]
+      },
+      tones: {
+        gaming: ["Cool", "Aggressive", "Mysterious", "Playful"],
+        youtube: ["Friendly", "Bold", "Smart", "Warm"],
+        business: ["Trustworthy", "Fresh", "Professional", "Global"],
+        fantasy: ["Mythic", "Elegant", "Ominous", "Noble"],
+        pet: ["Sweet", "Funny", "Gentle", "Cheerful"]
+      },
+      banks: {
+        gaming: ["vex", "nova", "rift", "dash", "zero", "flux", "bolt", "kai"],
+        youtube: ["daily", "pixel", "bright", "loop", "craft", "nest", "spark", "story"],
+        business: ["core", "luma", "vela", "north", "forge", "axis", "nexa", "ora"],
+        fantasy: ["ael", "dor", "wyn", "thorn", "vale", "myr", "ember", "loria"],
+        pet: ["mochi", "biscuit", "lulu", "pip", "coco", "sunny", "bean", "nori"]
+      },
+      suffixes: ["X", "ly", "io", ""]
+    },
+    ko: {
+      categories: { Gaming: "게임", Creator: "크리에이터", Business: "비즈니스", Fantasy: "판타지", Lifestyle: "라이프스타일" },
+      bestFor: { gaming: "게임 프로필과 클랜", youtube: "크리에이터 채널", business: "브랜드와 제품", fantasy: "캐릭터와 세계관", pet: "반려동물과 친근한 프로젝트" },
+      styles: {
+        gaming: ["강렬한", "사이버", "아케이드", "엘리트"],
+        youtube: ["스튜디오", "개인형", "바이럴", "매거진형"],
+        business: ["모던", "프리미엄", "미니멀", "조어형"],
+        fantasy: ["엘프풍", "고대풍", "어두운", "영웅적"],
+        pet: ["귀여운", "클래식", "푸드", "작고 아담한"]
+      },
+      tones: {
+        gaming: ["멋진", "공격적인", "신비로운", "장난스러운"],
+        youtube: ["친근한", "대담한", "똑똑한", "따뜻한"],
+        business: ["신뢰감 있는", "신선한", "전문적인", "글로벌한"],
+        fantasy: ["신화적인", "우아한", "음산한", "고귀한"],
+        pet: ["사랑스러운", "재미있는", "부드러운", "밝은"]
+      },
+      banks: {
+        gaming: ["섀도", "네온", "블리츠", "스톰", "제로", "레이븐", "카이", "볼트"],
+        youtube: ["데일리", "픽셀", "브라이트", "루프", "크래프트", "네스트", "스파크", "로그"],
+        business: ["코어", "루마", "벨라", "노스", "포지", "엑시스", "넥사", "오라"],
+        fantasy: ["아엘", "도르", "윈", "가온", "루나", "미르", "엘라", "아린"],
+        pet: ["모찌", "보리", "루루", "콩이", "초코", "두부", "나리", "해피"]
+      },
+      suffixes: ["", "온", "아", "빛"]
+    },
+    ja: {
+      categories: { Gaming: "ゲーム", Creator: "クリエイター", Business: "ビジネス", Fantasy: "ファンタジー", Lifestyle: "ライフスタイル" },
+      bestFor: { gaming: "ゲームプロフィールとクラン", youtube: "クリエイターチャンネル", business: "ブランドと商品", fantasy: "キャラクターと世界観", pet: "ペットと親しみやすいプロジェクト" },
+      styles: {
+        gaming: ["シャープ", "サイバー", "アーケード", "エリート"],
+        youtube: ["スタジオ", "パーソナル", "バイラル", "エディトリアル"],
+        business: ["モダン", "プレミアム", "ミニマル", "造語風"],
+        fantasy: ["エルフ風", "古代風", "ダーク", "英雄的"],
+        pet: ["かわいい", "クラシック", "フード系", "小さめ"]
+      },
+      tones: {
+        gaming: ["クールな", "攻撃的な", "神秘的な", "遊び心のある"],
+        youtube: ["親しみやすい", "大胆な", "知的な", "温かい"],
+        business: ["信頼感のある", "新鮮な", "専門的な", "グローバルな"],
+        fantasy: ["神話的な", "優雅な", "不穏な", "高貴な"],
+        pet: ["甘い", "面白い", "やさしい", "明るい"]
+      },
+      banks: {
+        gaming: ["カゲ", "ネオン", "ライガ", "ゼロ", "ブリッツ", "カイ", "レン", "ボルト"],
+        youtube: ["デイリー", "ピクセル", "ブライト", "ループ", "クラフト", "ネスト", "スパーク", "ログ"],
+        business: ["コア", "ルマ", "ベラ", "ノース", "フォージ", "アクシス", "ネクサ", "オーラ"],
+        fantasy: ["アエル", "ドル", "ウィン", "ルナ", "ミル", "エラ", "アリン", "セラ"],
+        pet: ["モチ", "ココ", "ルル", "マロン", "ソラ", "ナナ", "ポポ", "ハル"]
+      },
+      suffixes: ["", "ア", "ン", "ル"]
     }
   }[lang] || {};
 
@@ -70,57 +155,55 @@
   const results = document.querySelector("#resultGrid");
   const content = document.querySelector("#generatorContent");
 
-  const syllables = {
-    gaming: ["vex", "nova", "rift", "dash", "zero", "flux", "bolt", "kai"],
-    youtube: ["daily", "pixel", "bright", "loop", "craft", "nest", "spark", "story"],
-    business: ["core", "luma", "vela", "north", "forge", "axis", "nexa", "ora"],
-    fantasy: ["ael", "dor", "wyn", "thorn", "vale", "myr", "ember", "loria"],
-    pet: ["mochi", "biscuit", "lulu", "pip", "coco", "sunny", "bean", "nori"]
-  };
-
-  function titleCase(value) {
-    return value
-      .replace(/[^a-z0-9]+/gi, " ")
-      .trim()
-      .split(" ")
-      .filter(Boolean)
-      .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
-      .join("");
-  }
-
   function choice(items) {
     return items[Math.floor(Math.random() * items.length)];
   }
 
+  function normalizeKeyword(value) {
+    const trimmed = value.trim();
+    if (!trimmed) return "";
+    if (lang === "en") {
+      return trimmed
+        .replace(/[^a-z0-9]+/gi, " ")
+        .split(" ")
+        .filter(Boolean)
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+        .join("");
+    }
+    return trimmed.replace(/\s+/g, "");
+  }
+
   function renderPanel() {
+    const styles = localized.styles[generator.slug] || localized.styles.business;
+    const tones = localized.tones[generator.slug] || localized.tones.business;
     document.title = `${generator.title} - NameForge`;
     panel.innerHTML = `
       <div>
-        <p class="eyebrow">${generator.category}</p>
+        <p class="eyebrow">${localized.categories[generator.category] || generator.category}</p>
         <h1>${generator.title}</h1>
         <p>${generator.description}</p>
       </div>
       <form class="generator-form" id="nameForm">
-        <label for="keyword">${copy.keyword}</label>
+        <label for="keyword">${ui.keyword}</label>
         <input id="keyword" name="keyword" type="text" value="${initialKeyword}" placeholder="${generator.placeholder}">
         <div class="form-grid">
-          <label>${copy.style}<select name="style">${generator.styles.map((item) => `<option>${item}</option>`).join("")}</select></label>
-          <label>${copy.length}<select name="length"><option value="Short">${copy.short}</option><option value="Medium" selected>${copy.medium}</option><option value="Long">${copy.long}</option></select></label>
-          <label>${copy.tone}<select name="tone">${generator.tones.map((item) => `<option>${item}</option>`).join("")}</select></label>
+          <label>${ui.style}<select name="style">${styles.map((item) => `<option>${item}</option>`).join("")}</select></label>
+          <label>${ui.length}<select name="length"><option value="Short">${ui.short}</option><option value="Medium" selected>${ui.medium}</option><option value="Long">${ui.long}</option></select></label>
+          <label>${ui.tone}<select name="tone">${tones.map((item) => `<option>${item}</option>`).join("")}</select></label>
         </div>
-        <button class="button primary" type="submit">${copy.generate}</button>
+        <button class="button primary" type="submit">${ui.generate}</button>
       </form>
     `;
   }
 
   function makeName(keyword, style, length) {
-    const bank = syllables[generator.slug] || syllables.business;
-    const key = titleCase(keyword);
-    const first = titleCase(choice(bank));
-    const second = titleCase(choice(bank));
-    const styleWord = titleCase(style);
+    const bank = localized.banks[generator.slug] || localized.banks.business;
+    const key = normalizeKeyword(keyword);
+    const first = normalizeKeyword(choice(bank));
+    const second = normalizeKeyword(choice(bank));
+    const styleWord = normalizeKeyword(style);
 
-    if (length === "Short") return `${key || first}${choice(["X", "ly", "io", ""])}`;
+    if (length === "Short") return `${key || first}${choice(localized.suffixes)}`;
     if (length === "Long") return `${key || first}${styleWord}${second}`;
     return `${key || first}${second}`;
   }
@@ -131,12 +214,15 @@
     const length = formData.get("length").toString();
     const tone = formData.get("tone").toString();
     const name = makeName(keyword, style, length);
+    const category = localized.categories[generator.category] || generator.category;
+    const seed = keyword.trim() || style;
+
     return {
-      id: `${generator.slug}-${name}-${style}-${index}`.toLowerCase(),
+      id: `${lang}-${generator.slug}-${name}-${style}-${index}`.toLowerCase(),
       name,
-      category: generator.category,
-      meaning: `${name} suggests a ${tone.toLowerCase()} ${generator.category.toLowerCase()} identity shaped around ${keyword || style.toLowerCase()} energy.`,
-      bestFor: generator.title.replace(" Generator", "").toLowerCase(),
+      category,
+      meaning: ui.meaning(name, tone, category, seed),
+      bestFor: localized.bestFor[generator.slug],
       style
     };
   }
@@ -150,10 +236,10 @@
         <p class="card-kicker">${item.category}</p>
         <h3>${item.name}</h3>
         <p>${item.meaning}</p>
-        <dl><dt>${copy.bestFor}</dt><dd>${item.bestFor}</dd><dt>${copy.style}</dt><dd>${item.style}</dd></dl>
+        <dl><dt>${ui.bestFor}</dt><dd>${item.bestFor}</dd><dt>${ui.style}</dt><dd>${item.style}</dd></dl>
         <div class="button-row">
-          <button class="button ghost" type="button" data-copy="${item.name}">${copy.copy}</button>
-          <button class="button ghost" type="button" data-favorite="${item.id}">${storage.isFavorite(item.id) ? copy.saved : copy.favorite}</button>
+          <button class="button ghost" type="button" data-copy="${item.name}">${ui.copy}</button>
+          <button class="button ghost" type="button" data-favorite="${item.id}">${storage.isFavorite(item.id) ? ui.saved : ui.favorite}</button>
         </div>
       `;
       card.favoriteItem = item;
@@ -194,14 +280,14 @@
       const copyButton = event.target.closest("[data-copy]");
       if (copyButton) {
         await navigator.clipboard.writeText(copyButton.dataset.copy);
-        copyButton.textContent = copy.copied;
+        copyButton.textContent = ui.copied;
         return;
       }
       const favorite = event.target.closest("[data-favorite]");
       if (favorite) {
         const card = favorite.closest(".result-card");
         storage.saveFavorite(card.favoriteItem);
-        favorite.textContent = "Saved";
+        favorite.textContent = ui.saved;
       }
     });
   }
@@ -209,8 +295,8 @@
   renderPanel();
   renderContent();
   setupEvents();
-  document.querySelector("#results-title").textContent = copy.resultsTitle;
-  document.querySelector("[aria-labelledby='results-title'] .eyebrow").textContent = copy.resultsEyebrow;
-  document.querySelector(".section-heading.split .text-link").textContent = copy.favorites;
-  document.querySelector("#resultGrid .empty-state").textContent = copy.empty;
+  document.querySelector("#results-title").textContent = ui.resultsTitle;
+  document.querySelector("[aria-labelledby='results-title'] .eyebrow").textContent = ui.resultsEyebrow;
+  document.querySelector(".section-heading.split .text-link").textContent = ui.favorites;
+  document.querySelector("#resultGrid .empty-state").textContent = ui.empty;
 })();

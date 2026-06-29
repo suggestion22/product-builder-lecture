@@ -45,7 +45,7 @@
         "/generators.html": [
           [".page-hero .eyebrow", "Generator library"],
           [".page-hero h1", "Explore Name Generators"],
-          [".page-hero p", "Choose a focused tool for the kind of name you need, then tune it with your own keywords and style."],
+          [".page-hero p", "Choose a focused tool, enter one keyword, and get name ideas shaped around it."],
           ["#filters-title", "Filter by category"]
         ],
         "/favorites.html": [
@@ -100,7 +100,7 @@
         ],
         steps: [
           ["Choose a category", "Pick the generator closest to your naming goal."],
-          ["Add your style", "Use keywords, tone, and length to guide the output."],
+          ["Add a keyword", "Enter the word, mood, or theme the names should revolve around."],
           ["Generate and save names", "Copy favorites or save them locally for later review."]
         ],
         guides: [
@@ -155,7 +155,7 @@
         "/generators.html": [
           [".page-hero .eyebrow", "생성기 라이브러리"],
           [".page-hero h1", "이름 생성기 둘러보기"],
-          [".page-hero p", "목적에 맞는 도구를 선택하고 키워드와 스타일로 결과를 조정하세요."],
+          [".page-hero p", "목적에 맞는 도구를 선택하고 하나의 키워드를 중심으로 이름 후보를 받아보세요."],
           ["#filters-title", "카테고리 필터"]
         ],
         "/favorites.html": [
@@ -210,7 +210,7 @@
         ],
         steps: [
           ["카테고리 선택", "목표에 가장 가까운 이름 생성기를 고르세요."],
-          ["스타일 추가", "키워드, 톤, 길이로 결과 방향을 조정하세요."],
+          ["키워드 입력", "이름의 중심이 될 단어, 분위기, 주제를 입력하세요."],
           ["생성하고 저장", "마음에 드는 이름을 복사하거나 로컬에 저장하세요."]
         ],
         guides: [
@@ -265,7 +265,7 @@
         "/generators.html": [
           [".page-hero .eyebrow", "ジェネレーターライブラリ"],
           [".page-hero h1", "名前ジェネレーターを探す"],
-          [".page-hero p", "目的に合うツールを選び、キーワードとスタイルで結果を調整できます。"],
+          [".page-hero p", "目的に合うツールを選び、ひとつのキーワードを中心に名前案を作れます。"],
           ["#filters-title", "カテゴリーで絞り込み"]
         ],
         "/favorites.html": [
@@ -320,7 +320,7 @@
         ],
         steps: [
           ["カテゴリーを選ぶ", "目的に最も近い名前ジェネレーターを選びます。"],
-          ["スタイルを追加", "キーワード、トーン、長さで出力の方向を調整します。"],
+          ["キーワードを入力", "名前の中心にしたい言葉、雰囲気、テーマを入力します。"],
           ["生成して保存", "気に入った名前をコピーしたりローカルに保存できます。"]
         ],
         guides: [
@@ -386,8 +386,12 @@
   };
 
   function getLanguage() {
-    const saved = localStorage.getItem(LANG_KEY);
-    if (supportedLanguages.includes(saved)) return saved;
+    try {
+      const saved = localStorage.getItem(LANG_KEY);
+      if (supportedLanguages.includes(saved)) return saved;
+    } catch (error) {
+      return "en";
+    }
     return "en";
   }
 
@@ -434,14 +438,23 @@
   }
 
   function setupTheme() {
-    const saved = localStorage.getItem(THEME_KEY);
+    let saved = null;
+    try {
+      saved = localStorage.getItem(THEME_KEY);
+    } catch (error) {
+      saved = null;
+    }
     const theme = saved || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
     applyTheme(theme);
     const button = document.querySelector("#themeToggle");
     if (!button) return;
     button.addEventListener("click", () => {
       const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-      localStorage.setItem(THEME_KEY, next);
+      try {
+        localStorage.setItem(THEME_KEY, next);
+      } catch (error) {
+        // Theme still applies for the current page when storage is unavailable.
+      }
       applyTheme(next);
     });
   }
@@ -451,7 +464,11 @@
     if (!select) return;
     select.value = getLanguage();
     select.addEventListener("change", () => {
-      localStorage.setItem(LANG_KEY, select.value);
+      try {
+        localStorage.setItem(LANG_KEY, select.value);
+      } catch (error) {
+        // Keep the site usable if the browser blocks persistent storage.
+      }
       window.location.reload();
     });
   }
@@ -588,6 +605,17 @@
     });
   }
 
+  function setupAds() {
+    const host = window.location.hostname;
+    const isLocal = !host || host === "localhost" || host === "127.0.0.1" || host === "::1";
+    if (isLocal) return;
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9262301225937575";
+    script.crossOrigin = "anonymous";
+    document.head.appendChild(script);
+  }
+
   function renderFavoritesPage() {
     const target = document.querySelector("#favoritesList");
     const storage = window.NameForgeStorage;
@@ -608,7 +636,7 @@
           <p class="card-kicker">${favorite.category}</p>
           <h3>${favorite.name}</h3>
           <p>${favorite.meaning}</p>
-          <dl><dt>${copy.ui.bestFor}</dt><dd>${favorite.bestFor}</dd><dt>${copy.ui.style}</dt><dd>${favorite.style}</dd></dl>
+          <dl><dt>${copy.ui.bestFor}</dt><dd>${favorite.bestFor}</dd></dl>
           <button class="button ghost" type="button" data-remove="${favorite.id}">${copy.ui.remove}</button>
         `;
         target.appendChild(card);
@@ -635,4 +663,5 @@
   setupHeroGenerate();
   setupMobileNav();
   setupTheme();
+  setupAds();
 })();

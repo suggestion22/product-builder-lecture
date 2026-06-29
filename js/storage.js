@@ -13,13 +13,23 @@
     const favorites = getFavorites();
     if (!favorites.some((favorite) => favorite.id === item.id)) {
       favorites.unshift(item);
-      localStorage.setItem(KEY, JSON.stringify(favorites));
+      try {
+        localStorage.setItem(KEY, JSON.stringify(favorites));
+      } catch {
+        return false;
+      }
     }
+    return true;
   }
 
   function removeFavorite(id) {
     const favorites = getFavorites().filter((favorite) => favorite.id !== id);
-    localStorage.setItem(KEY, JSON.stringify(favorites));
+    try {
+      localStorage.setItem(KEY, JSON.stringify(favorites));
+    } catch {
+      return false;
+    }
+    return true;
   }
 
   function isFavorite(id) {

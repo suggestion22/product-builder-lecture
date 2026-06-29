@@ -5,7 +5,12 @@
   const type = params.get("type") || "gaming";
   const generator = generators.find((item) => item.slug === type) || generators[0];
   const initialKeyword = params.get("q") || "";
-  const lang = localStorage.getItem("nameforge-language") || "en";
+  let lang = "en";
+  try {
+    lang = localStorage.getItem("nameforge-language") || "en";
+  } catch (error) {
+    lang = "en";
+  }
 
   const ui = {
     en: {
@@ -31,7 +36,7 @@
       quality: "Quality score",
       checks: ["Easy to say", "Memorable", "Flexible"],
       search: "Search web",
-      meaning: (name, tone, category, seed) => `${name} suggests a ${tone.toLowerCase()} ${category.toLowerCase()} identity shaped around ${seed} energy.`
+      meaning: (name, category, seed) => `${name} is a ${category.toLowerCase()} name idea built around ${seed}.`
     },
     ko: {
       keyword: "키워드",
@@ -56,7 +61,7 @@
       quality: "실용 점수",
       checks: ["부르기 쉬움", "기억하기 좋음", "확장 가능"],
       search: "웹 검색",
-      meaning: (name, tone, category, seed) => `${name}은 ${seed}의 분위기를 바탕으로 한 ${tone} 느낌의 ${category} 이름입니다.`
+      meaning: (name, category, seed) => `${name}은 ${seed} 키워드를 중심으로 만든 ${category} 이름입니다.`
     },
     ja: {
       keyword: "キーワード",
@@ -81,7 +86,7 @@
       quality: "実用スコア",
       checks: ["言いやすい", "覚えやすい", "展開しやすい"],
       search: "Web検索",
-      meaning: (name, tone, category, seed) => `${name}は、${seed}の雰囲気をもとにした${tone}印象の${category}向けネームです。`
+      meaning: (name, category, seed) => `${name}は、${seed}のキーワードを中心にした${category}向けネームです。`
     }
   }[lang] || {};
 
@@ -472,7 +477,12 @@
 
   function rememberNames(items) {
     const next = [...items.map((item) => item.name), ...getRecentNames()];
-    localStorage.setItem(recentKey, JSON.stringify([...new Set(next)].slice(0, 80)));
+    try {
+      localStorage.setItem(recentKey, JSON.stringify([...new Set(next)].slice(0, 80)));
+    } catch (error) {
+      return false;
+    }
+    return true;
   }
 
   function escapeHtml(value) {
@@ -500,8 +510,6 @@
   }
 
   function renderPanel() {
-    const styles = localized.styles[generator.slug] || localized.styles.business;
-    const tones = localized.tones[generator.slug] || localized.tones.business;
     const text = getLocalizedGeneratorText();
     document.title = `${text.title} - NameForge`;
     panel.innerHTML = `
@@ -513,51 +521,31 @@
       <form class="generator-form" id="nameForm">
         <label for="keyword">${ui.keyword}</label>
         <input id="keyword" name="keyword" type="text" value="${escapeHtml(initialKeyword)}" placeholder="${escapeHtml(text.placeholder)}">
-        <div class="form-grid">
-          <label>${ui.style}<select name="style">${styles.map((item) => `<option>${escapeHtml(item)}</option>`).join("")}</select></label>
-          <label>${ui.length}<select name="length"><option value="Short">${ui.short}</option><option value="Medium" selected>${ui.medium}</option><option value="Long">${ui.long}</option></select></label>
-          <label>${ui.tone}<select name="tone">${tones.map((item) => `<option>${escapeHtml(item)}</option>`).join("")}</select></label>
-        </div>
         <button class="button primary" type="submit">${ui.generate}</button>
       </form>
     `;
   }
 
-  function makeName(keyword, style, length, attempt = 0) {
+  function makeName(keyword, attempt = 0) {
     const kit = getNameKit();
-    const key = normalizeKeyword(keyword);
+    const fallback = variedChoice(kit.roots, attempt);
+    const key = normalizeKeyword(keyword) || fallback;
     const rootA = variedChoice(kit.roots, attempt);
     const rootB = variedChoice(kit.roots, attempt + 5);
     const prefix = variedChoice(kit.prefixes, attempt + 2);
     const suffix = variedChoice(kit.suffixes, attempt + 3);
-    const compound = variedChoice(kit.compounds, attempt + 7);
-    const styleWord = normalizeKeyword(style);
     const variant = localized.variants[attempt % localized.variants.length];
     const joiner = getJoiner();
-    const useKeyword = key && attempt % 4 !== 1;
-    const patterns = {
-      Short: [
-        () => joinName([prefix, rootA]),
-        () => joinName([rootA, suffix]),
-        () => titleCase(compound),
-        () => joinName([useKeyword ? key : rootA, suffix])
-      ],
-      Medium: [
-        () => joinName([prefix, rootA, suffix]),
-        () => joinName([rootA, rootB]),
-        () => joinName([useKeyword ? key : prefix, rootA], joiner),
-        () => joinName([rootA, variant]),
-        () => titleCase(compound)
-      ],
-      Long: [
-        () => joinName([useKeyword ? key : prefix, styleWord, rootA], joiner),
-        () => joinName([prefix, rootA, rootB, suffix]),
-        () => joinName([rootA, styleWord, rootB]),
-        () => joinName([compound, variant], joiner),
-        () => joinName([useKeyword ? key : rootA, prefix, suffix], joiner)
-      ]
-    };
-    const pool = patterns[length] || patterns.Medium;
+    const pool = [
+      () => joinName([prefix, key]),
+      () => joinName([key, suffix]),
+      () => joinName([key, variant], joiner),
+      () => joinName([prefix, key, suffix]),
+      () => joinName([key, rootA], joiner),
+      () => joinName([rootA, key], joiner),
+      () => joinName([key, rootB, suffix], joiner),
+      () => joinName([prefix, key, variant], joiner)
+    ];
     return pool[attempt % pool.length]();
   }
 
@@ -582,29 +570,25 @@
   }
 
   function buildResult(formData, index, usedNames) {
-    const keyword = formData.get("keyword").toString();
-    const style = formData.get("style").toString();
-    const length = formData.get("length").toString();
-    const tone = formData.get("tone").toString();
+    const keyword = String(formData.get("keyword") || "");
     let name = "";
     let attempt = 0;
 
     do {
-      name = makeName(keyword, style, length, attempt);
+      name = makeName(keyword, attempt);
       attempt += 1;
     } while ((usedNames.has(name) || !name) && attempt < 120);
 
     usedNames.add(name);
     const category = localized.categories[generator.category] || generator.category;
-    const seed = keyword.trim() || style;
+    const seed = keyword.trim() || category;
 
     return {
-      id: `${lang}-${generator.slug}-${name}-${style}-${index}`.toLowerCase(),
+      id: `${lang}-${generator.slug}-${name}-${index}`.toLowerCase(),
       name,
       category,
-      meaning: ui.meaning(name, tone, category, seed),
+      meaning: ui.meaning(name, category, seed),
       bestFor: localized.bestFor[generator.slug],
-      style,
       score: scoreName(name)
     };
   }
@@ -627,7 +611,7 @@
           <span class="score-badge">${escapeHtml(ui.quality)}: ${item.score}</span>
         </div>
         <p>${escapeHtml(item.meaning)}</p>
-        <dl><dt>${escapeHtml(ui.bestFor)}</dt><dd>${escapeHtml(item.bestFor)}</dd><dt>${escapeHtml(ui.style)}</dt><dd>${escapeHtml(item.style)}</dd></dl>
+        <dl><dt>${escapeHtml(ui.bestFor)}</dt><dd>${escapeHtml(item.bestFor)}</dd></dl>
         <ul class="result-checks">${buildCheckList(item.name)}</ul>
         <div class="button-row">
           <button class="button ghost" type="button" data-copy="${escapeHtml(item.name)}">${escapeHtml(ui.copy)}</button>
@@ -665,6 +649,16 @@
   }
 
   function setupEvents() {
+    async function copyText(text) {
+      if (!navigator.clipboard || !window.isSecureContext) return false;
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch (error) {
+        return false;
+      }
+    }
+
     panel.querySelector("#nameForm").addEventListener("submit", (event) => {
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
@@ -679,23 +673,20 @@
       copyAllButton.addEventListener("click", async () => {
         if (!latestResults.length) return;
         const text = latestResults.map((item) => `${item.name} - ${item.meaning}`).join("\n");
-        await navigator.clipboard.writeText(text);
-        copyAllButton.textContent = ui.copiedAll;
+        copyAllButton.textContent = (await copyText(text)) ? ui.copiedAll : ui.copyAll;
       });
     }
 
     results.addEventListener("click", async (event) => {
       const copyButton = event.target.closest("[data-copy]");
       if (copyButton) {
-        await navigator.clipboard.writeText(copyButton.dataset.copy);
-        copyButton.textContent = ui.copied;
+        copyButton.textContent = (await copyText(copyButton.dataset.copy)) ? ui.copied : ui.copy;
         return;
       }
       const favorite = event.target.closest("[data-favorite]");
       if (favorite) {
         const card = favorite.closest(".result-card");
-        storage.saveFavorite(card.favoriteItem);
-        favorite.textContent = ui.saved;
+        if (storage.saveFavorite(card.favoriteItem)) favorite.textContent = ui.saved;
       }
     });
   }

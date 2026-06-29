@@ -1,28 +1,30 @@
 :root {
-  --bg: #fbfaff;
+  --bg: #f8faf9;
   --surface: #ffffff;
-  --surface-soft: #f6f1ff;
-  --ink: #1e1b2e;
-  --muted: #6d6880;
-  --line: #e6def5;
-  --accent: #8b5cf6;
-  --accent-dark: #6d3fd4;
-  --accent-soft: #efe7ff;
-  --shadow: 0 20px 50px rgba(68, 44, 116, 0.12);
-  --radius: 18px;
+  --surface-soft: #eef7f4;
+  --ink: #1d2430;
+  --muted: #667085;
+  --line: #dbe6e2;
+  --accent: #247c72;
+  --accent-dark: #155e56;
+  --accent-warm: #d97745;
+  --accent-soft: #dff3ef;
+  --shadow: 0 18px 42px rgba(29, 36, 48, 0.1);
+  --radius: 8px;
   color-scheme: light;
 }
 
 :root[data-theme="dark"] {
-  --bg: #12101a;
-  --surface: #1c1828;
-  --surface-soft: #282236;
-  --ink: #f7f2ff;
-  --muted: #c7bdd9;
-  --line: #3a314d;
-  --accent: #a78bfa;
-  --accent-dark: #c4b5fd;
-  --accent-soft: #33284c;
+  --bg: #111821;
+  --surface: #192330;
+  --surface-soft: #213345;
+  --ink: #f4f7f6;
+  --muted: #b8c4c1;
+  --line: #304250;
+  --accent: #64d2c3;
+  --accent-dark: #9ce3da;
+  --accent-warm: #f0a06f;
+  --accent-soft: #173c3a;
   --shadow: 0 20px 50px rgba(0, 0, 0, 0.34);
   color-scheme: dark;
 }
@@ -251,8 +253,8 @@ h3 {
 
 .primary {
   color: #ffffff;
-  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-  box-shadow: 0 12px 28px rgba(139, 92, 246, 0.28);
+  background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+  box-shadow: 0 12px 28px rgba(36, 124, 114, 0.24);
 }
 
 :root[data-theme="dark"] .primary {
@@ -743,16 +745,40 @@ summary {
 @media (max-width: 560px) {
   .site-header {
     width: min(100% - 20px, 1180px);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px 10px;
+    padding: 10px 0;
   }
 
   .header-actions {
-    order: 2;
+    grid-column: 1 / -1;
+    justify-content: stretch;
     width: 100%;
-    justify-content: flex-end;
+  }
+
+  .language-control {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .language-control select {
+    width: 100%;
+    max-width: none;
+    min-height: 34px;
+    padding-left: 12px;
+  }
+
+  .theme-button {
+    flex: 0 0 auto;
+    min-height: 34px;
+    min-width: 58px;
+    padding: 0 12px;
   }
 
   .nav-toggle {
-    order: 1;
+    min-height: 34px;
+    padding: 7px 12px;
   }
 
   .site-nav {

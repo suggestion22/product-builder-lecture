@@ -5,8 +5,32 @@ const copyButton = document.querySelector("#copyButton");
 const clearButton = document.querySelector("#clearButton");
 const gameCountEl = document.querySelector("#gameCount");
 const ticketListEl = document.querySelector("#ticketList");
+const themeToggle = document.querySelector("#themeToggle");
+const themeIcon = themeToggle.querySelector(".theme-icon");
+const themeLabel = themeToggle.querySelector(".theme-label");
 
 let latestTickets = [];
+const THEME_STORAGE_KEY = "lotto-picker-theme";
+
+function getPreferredTheme() {
+  const savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+
+  if (savedTheme === "light" || savedTheme === "dark") {
+    return savedTheme;
+  }
+
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+function setTheme(theme) {
+  document.body.dataset.theme = theme;
+  window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+
+  const isDark = theme === "dark";
+  themeIcon.textContent = isDark ? "☀" : "☾";
+  themeLabel.textContent = isDark ? "화이트 모드" : "다크 모드";
+  themeToggle.setAttribute("aria-label", isDark ? "화이트 모드로 전환" : "다크 모드로 전환");
+}
 
 function getBallClass(number) {
   if (number <= 10) return "";
@@ -176,3 +200,9 @@ function clearResults() {
 drawButton.addEventListener("click", drawTickets);
 copyButton.addEventListener("click", copyResults);
 clearButton.addEventListener("click", clearResults);
+themeToggle.addEventListener("click", () => {
+  const nextTheme = document.body.dataset.theme === "dark" ? "light" : "dark";
+  setTheme(nextTheme);
+});
+
+setTheme(getPreferredTheme());

@@ -169,6 +169,105 @@
     }
   }[lang] || {};
 
+  const nameResources = {
+    en: {
+      gaming: {
+        roots: ["vex", "nova", "rift", "dash", "zero", "flux", "bolt", "kai", "frost", "blade", "pulse", "drift", "rogue", "quake", "echo", "flare", "nyx", "onyx", "raze", "orbit", "vector", "strike"],
+        prefixes: ["Neo", "Void", "Hyper", "Shadow", "Aero", "Iron", "Pixel", "Night", "Turbo", "Ghost", "Rapid", "Storm"],
+        suffixes: ["X", "Rush", "Core", "Byte", "Wolf", "Edge", "Mode", "Ops", "Run", "Aim", "Arc", "Sync"],
+        compounds: ["NovaStrike", "VoidRift", "PixelAce", "FrostVex", "DashCore", "RiftRunner", "ZeroPulse", "BoltFang", "KaiVector", "GhostOrbit"]
+      },
+      youtube: {
+        roots: ["daily", "pixel", "bright", "loop", "craft", "nest", "spark", "story", "signal", "frame", "vibe", "room", "pilot", "journal", "lens", "studio", "corner", "works", "scene", "channel"],
+        prefixes: ["Hello", "Fresh", "True", "Open", "Simple", "Tiny", "Bold", "Curious", "Modern", "Cozy", "Next", "Prime"],
+        suffixes: ["Studio", "Show", "Journal", "Room", "Lab", "Club", "Cast", "Edit", "Files", "Notes", "Stories", "Daily"],
+        compounds: ["BrightLoop", "CreatorNest", "PixelJournal", "DailyForge", "StorySignal", "CraftRoom", "FreshFrame", "CozyPilot", "SparkStudio", "OpenScene"]
+      },
+      business: {
+        roots: ["core", "luma", "vela", "north", "forge", "axis", "nexa", "ora", "atlas", "clear", "terra", "civic", "nova", "stride", "aura", "field", "prime", "harbor", "kindle", "merit"],
+        prefixes: ["Aster", "Blue", "Clear", "Ever", "Horizon", "Luma", "Noble", "North", "Open", "Silver", "Urban", "Vertex"],
+        suffixes: ["Labs", "Works", "Group", "Studio", "Systems", "Collective", "Co", "HQ", "Stack", "Point", "Bridge", "Base"],
+        compounds: ["Corevia", "LumaWorks", "Northbyte", "Velora", "AxisBridge", "NexaPoint", "HarborStack", "OpenMerit", "AsterBase", "ClearForge"]
+      },
+      fantasy: {
+        roots: ["ael", "dor", "wyn", "thorn", "vale", "myr", "ember", "loria", "cael", "seren", "dusk", "rune", "eira", "brann", "nyra", "varyn", "oriel", "maelis", "draven", "syl"],
+        prefixes: ["Ael", "Elden", "Moon", "Dusk", "Thorn", "Silver", "Ashen", "Star", "Myth", "Rune", "Ebon", "Vale"],
+        suffixes: ["dor", "wyn", "mere", "vale", "rion", "thas", "oria", "mar", "dell", "keep", "fall", "spire"],
+        compounds: ["Aeloria", "Duskmar", "Thornvale", "Eryndor", "Moonspire", "Runekeep", "Ashenmere", "Silverwyn", "Mythfall", "Ebonvale"]
+      },
+      pet: {
+        roots: ["mochi", "biscuit", "lulu", "pip", "coco", "sunny", "bean", "nori", "milo", "peanut", "poppy", "toto", "maple", "berry", "miso", "bambi", "daisy", "nana", "cookie", "bonbon"],
+        prefixes: ["Tiny", "Little", "Sweet", "Happy", "Sunny", "Baby", "Mellow", "Lucky", "Soft", "Mini", "Cozy", "Peppy"],
+        suffixes: ["bean", "boo", "pop", "bun", "kins", "paw", "pie", "bug", "bear", "belle", "tail", "chip"],
+        compounds: ["Sunnybean", "Mochi", "Biscuit", "Lulu", "CocoPaw", "MapleBun", "PeanutPop", "MisoBear", "PoppyPie", "TinyNori"]
+      }
+    },
+    ko: {
+      gaming: {
+        roots: ["섀도", "네온", "블리츠", "스톰", "제로", "레이븐", "카이", "볼트", "팬텀", "루나", "리프트", "블레이드", "에코", "플럭스", "오닉스", "스파크"],
+        prefixes: ["다크", "네오", "하이퍼", "스톰", "고스트", "아이언", "블랙", "라이트", "터보", "나이트"],
+        suffixes: ["엑스", "러시", "코어", "바이트", "엣지", "헌터", "러너", "싱크", "에임", "아크"],
+        compounds: ["네온블리츠", "섀도리프트", "제로펄스", "스톰카이", "볼트레이븐", "팬텀엣지", "루나스트라이크", "오닉스러너"]
+      },
+      youtube: {
+        roots: ["데일리", "픽셀", "브라이트", "루프", "크래프트", "네스트", "스파크", "로그", "스토리", "프레임", "시그널", "스튜디오", "룸", "노트", "렌즈", "코지"],
+        prefixes: ["헬로", "프레시", "오픈", "심플", "모던", "코지", "볼드", "큐리어스", "넥스트", "트루"],
+        suffixes: ["스튜디오", "쇼", "저널", "룸", "랩", "클럽", "캐스트", "에딧", "노트", "스토리"],
+        compounds: ["브라이트루프", "크리에이터네스트", "픽셀저널", "데일리포지", "스토리시그널", "코지프레임", "스파크룸", "오픈로그"]
+      },
+      business: {
+        roots: ["코어", "루마", "벨라", "노스", "포지", "엑시스", "넥사", "오라", "아틀라스", "클리어", "테라", "프라임", "하버", "메리트", "브릿지", "필드"],
+        prefixes: ["블루", "클리어", "에버", "호라이즌", "루마", "노블", "노스", "오픈", "실버", "어반"],
+        suffixes: ["랩스", "웍스", "그룹", "스튜디오", "시스템즈", "컬렉티브", "코", "스택", "포인트", "베이스"],
+        compounds: ["코어비아", "루마웍스", "노스바이트", "벨로라", "엑시스브릿지", "넥사포인트", "하버스택", "클리어포지"]
+      },
+      fantasy: {
+        roots: ["아엘", "도르", "윈", "가온", "루나", "미르", "엘라", "아린", "세렌", "카엘", "에이라", "바린", "오리엘", "드라벤", "실라", "아르덴"],
+        prefixes: ["아엘", "고대", "달빛", "황혼", "가시", "은빛", "잿빛", "별", "룬", "검은"],
+        suffixes: ["도르", "윈", "미어", "베일", "리온", "시아", "오리아", "마르", "스파이어", "킨"],
+        compounds: ["아엘로리아", "더스크마르", "손베일", "에린도르", "문스파이어", "룬킨", "은빛윈", "미르오리아"]
+      },
+      pet: {
+        roots: ["모찌", "보리", "루루", "콩이", "초코", "두부", "나리", "해피", "밀로", "쿠키", "단추", "밤비", "나나", "베리", "코코", "토토"],
+        prefixes: ["작은", "햇살", "달콤", "해피", "말랑", "럭키", "미니", "포근", "방울", "몽글"],
+        suffixes: ["콩", "뽀", "빵", "복", "별", "발", "꼬리", "칩", "링", "밤"],
+        compounds: ["햇살콩이", "모찌", "보리", "루루", "코코발", "단추별", "초코빵", "두부링"]
+      }
+    },
+    ja: {
+      gaming: {
+        roots: ["シャドウ", "ネオン", "ブリッツ", "ストーム", "ゼロ", "レイヴン", "カイ", "ボルト", "ファントム", "ルナ", "リフト", "ブレード", "エコー", "フラックス", "オニキス", "スパーク"],
+        prefixes: ["ダーク", "ネオ", "ハイパー", "ストーム", "ゴースト", "アイアン", "ブラック", "ライト", "ターボ", "ナイト"],
+        suffixes: ["エックス", "ラッシュ", "コア", "バイト", "エッジ", "ハンター", "ランナー", "シンク", "エイム", "アーク"],
+        compounds: ["ネオンブリッツ", "シャドウリフト", "ゼロパルス", "ストームカイ", "ボルトレイヴン", "ファントムエッジ", "ルナストライク", "オニキスランナー"]
+      },
+      youtube: {
+        roots: ["デイリー", "ピクセル", "ブライト", "ループ", "クラフト", "ネスト", "スパーク", "ログ", "ストーリー", "フレーム", "シグナル", "スタジオ", "ルーム", "ノート", "レンズ", "コージー"],
+        prefixes: ["ハロー", "フレッシュ", "オープン", "シンプル", "モダン", "コージー", "ボールド", "キュリアス", "ネクスト", "トゥルー"],
+        suffixes: ["スタジオ", "ショー", "ジャーナル", "ルーム", "ラボ", "クラブ", "キャスト", "エディット", "ノート", "ストーリー"],
+        compounds: ["ブライトループ", "クリエイターネスト", "ピクセルジャーナル", "デイリーフォージ", "ストーリーシグナル", "コージーフレーム", "スパークルーム", "オープンログ"]
+      },
+      business: {
+        roots: ["コア", "ルマ", "ヴェラ", "ノース", "フォージ", "アクシス", "ネクサ", "オーラ", "アトラス", "クリア", "テラ", "プライム", "ハーバー", "メリット", "ブリッジ", "フィールド"],
+        prefixes: ["ブルー", "クリア", "エバー", "ホライゾン", "ルマ", "ノーブル", "ノース", "オープン", "シルバー", "アーバン"],
+        suffixes: ["ラボ", "ワークス", "グループ", "スタジオ", "システムズ", "コレクティブ", "コ", "スタック", "ポイント", "ベース"],
+        compounds: ["コアヴィア", "ルマワークス", "ノースバイト", "ヴェロラ", "アクシスブリッジ", "ネクサポイント", "ハーバースタック", "クリアフォージ"]
+      },
+      fantasy: {
+        roots: ["アエル", "ドル", "ウィン", "カオン", "ルナ", "ミル", "エラ", "アリン", "セレン", "カエル", "エイラ", "ヴァリン", "オリエル", "ドラヴェン", "シラ", "アルデン"],
+        prefixes: ["アエル", "古代", "月影", "黄昏", "茨", "銀", "灰", "星", "ルーン", "黒"],
+        suffixes: ["ドル", "ウィン", "ミア", "ヴェイル", "リオン", "シア", "オリア", "マル", "スパイア", "キン"],
+        compounds: ["アエロリア", "ダスクマル", "ソーンヴェイル", "エリンドル", "ムーンスパイア", "ルーンキン", "シルバーウィン", "ミルオリア"]
+      },
+      pet: {
+        roots: ["モチ", "ボリ", "ルル", "マメ", "チョコ", "トーフ", "ナリ", "ハッピー", "ミロ", "クッキー", "ボタン", "バンビ", "ナナ", "ベリー", "ココ", "トト"],
+        prefixes: ["ちび", "ひなた", "スイート", "ハッピー", "ふわ", "ラッキー", "ミニ", "ぽかぽか", "まる", "もこ"],
+        suffixes: ["まめ", "ぽん", "パン", "ふく", "ほし", "パウ", "しっぽ", "チップ", "リン", "まる"],
+        compounds: ["ひなたマメ", "モチ", "ボリ", "ルル", "ココパウ", "ボタンほし", "チョコパン", "トーフリン"]
+      }
+    }
+  };
+
   const contentLabels = {
     en: {
       what: "What is this generator?",
@@ -304,10 +403,30 @@
   const results = document.querySelector("#resultGrid");
   const content = document.querySelector("#generatorContent");
   const copyAllButton = document.querySelector("#copyAllButton");
+  const recentKey = `nameforge-recent-${lang}-${generator.slug}`;
   let latestResults = [];
 
-  function choice(items) {
-    return items[Math.floor(Math.random() * items.length)];
+  function randomInt(max) {
+    if (max <= 0) return 0;
+    if (window.crypto && window.crypto.getRandomValues) {
+      const values = new Uint32Array(1);
+      window.crypto.getRandomValues(values);
+      return values[0] % max;
+    }
+    return Math.floor(Math.random() * max);
+  }
+
+  function variedChoice(items, offset = 0) {
+    if (!items.length) return "";
+    return items[(randomInt(items.length) + offset) % items.length];
+  }
+
+  function titleCase(value) {
+    if (lang !== "en") return value;
+    return value
+      .split(/(\s+)/)
+      .map((part) => (/^\s+$/.test(part) ? part : part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()))
+      .join("");
   }
 
   function normalizeKeyword(value) {
@@ -322,6 +441,38 @@
         .join("");
     }
     return trimmed.replace(/\s+/g, "");
+  }
+
+  function joinName(parts, separator = "") {
+    return parts
+      .filter(Boolean)
+      .map((part) => titleCase(normalizeKeyword(part)))
+      .join(separator);
+  }
+
+  function getNameKit() {
+    const langResources = nameResources[lang] || nameResources.en;
+    return langResources[generator.slug] || langResources.business;
+  }
+
+  function getJoiner() {
+    if (lang !== "en") return "";
+    if (generator.slug === "youtube" || generator.slug === "business") return randomInt(4) === 0 ? " " : "";
+    return "";
+  }
+
+  function getRecentNames() {
+    try {
+      const parsed = JSON.parse(localStorage.getItem(recentKey) || "[]");
+      return Array.isArray(parsed) ? parsed.filter(Boolean).slice(0, 80) : [];
+    } catch (error) {
+      return [];
+    }
+  }
+
+  function rememberNames(items) {
+    const next = [...items.map((item) => item.name), ...getRecentNames()];
+    localStorage.setItem(recentKey, JSON.stringify([...new Set(next)].slice(0, 80)));
   }
 
   function escapeHtml(value) {
@@ -373,16 +524,41 @@
   }
 
   function makeName(keyword, style, length, attempt = 0) {
-    const bank = localized.banks[generator.slug] || localized.banks.business;
+    const kit = getNameKit();
     const key = normalizeKeyword(keyword);
-    const first = normalizeKeyword(choice(bank));
-    const second = normalizeKeyword(choice(bank));
+    const rootA = variedChoice(kit.roots, attempt);
+    const rootB = variedChoice(kit.roots, attempt + 5);
+    const prefix = variedChoice(kit.prefixes, attempt + 2);
+    const suffix = variedChoice(kit.suffixes, attempt + 3);
+    const compound = variedChoice(kit.compounds, attempt + 7);
     const styleWord = normalizeKeyword(style);
-    const variant = normalizeKeyword(localized.variants[attempt % localized.variants.length]);
-
-    if (length === "Short") return `${key || first}${attempt > 0 ? variant : choice(localized.suffixes)}`;
-    if (length === "Long") return `${key || first}${styleWord}${second}${attempt > 0 ? variant : ""}`;
-    return `${key || first}${second}${attempt > 0 ? variant : ""}`;
+    const variant = localized.variants[attempt % localized.variants.length];
+    const joiner = getJoiner();
+    const useKeyword = key && attempt % 4 !== 1;
+    const patterns = {
+      Short: [
+        () => joinName([prefix, rootA]),
+        () => joinName([rootA, suffix]),
+        () => titleCase(compound),
+        () => joinName([useKeyword ? key : rootA, suffix])
+      ],
+      Medium: [
+        () => joinName([prefix, rootA, suffix]),
+        () => joinName([rootA, rootB]),
+        () => joinName([useKeyword ? key : prefix, rootA], joiner),
+        () => joinName([rootA, variant]),
+        () => titleCase(compound)
+      ],
+      Long: [
+        () => joinName([useKeyword ? key : prefix, styleWord, rootA], joiner),
+        () => joinName([prefix, rootA, rootB, suffix]),
+        () => joinName([rootA, styleWord, rootB]),
+        () => joinName([compound, variant], joiner),
+        () => joinName([useKeyword ? key : rootA, prefix, suffix], joiner)
+      ]
+    };
+    const pool = patterns[length] || patterns.Medium;
+    return pool[attempt % pool.length]();
   }
 
   function scoreName(name) {
@@ -416,7 +592,7 @@
     do {
       name = makeName(keyword, style, length, attempt);
       attempt += 1;
-    } while (usedNames.has(name) && attempt < 40);
+    } while ((usedNames.has(name) || !name) && attempt < 120);
 
     usedNames.add(name);
     const category = localized.categories[generator.category] || generator.category;
@@ -492,8 +668,10 @@
     panel.querySelector("#nameForm").addEventListener("submit", (event) => {
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
-      const usedNames = new Set();
-      renderResults(Array.from({ length: 10 }, (_, index) => buildResult(formData, index, usedNames)));
+      const usedNames = new Set(getRecentNames());
+      const items = Array.from({ length: 10 }, (_, index) => buildResult(formData, index, usedNames));
+      rememberNames(items);
+      renderResults(items);
     });
 
     if (copyAllButton) {

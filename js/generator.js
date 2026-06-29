@@ -24,8 +24,14 @@
       bestFor: "Best for",
       copy: "Copy",
       copied: "Copied",
+      copyAll: "Copy all",
+      copiedAll: "Copied all",
       favorite: "Favorite",
       saved: "Saved",
+      quality: "Quality score",
+      checks: ["Easy to say", "Memorable", "Flexible"],
+      search: "Search web",
+      domain: "Check domain",
       meaning: (name, tone, category, seed) => `${name} suggests a ${tone.toLowerCase()} ${category.toLowerCase()} identity shaped around ${seed} energy.`
     },
     ko: {
@@ -44,8 +50,14 @@
       bestFor: "추천 용도",
       copy: "복사",
       copied: "복사됨",
+      copyAll: "전체 복사",
+      copiedAll: "전체 복사됨",
       favorite: "저장",
       saved: "저장됨",
+      quality: "실용 점수",
+      checks: ["부르기 쉬움", "기억하기 좋음", "확장 가능"],
+      search: "웹 검색",
+      domain: "도메인 확인",
       meaning: (name, tone, category, seed) => `${name}은 ${seed}의 분위기를 바탕으로 한 ${tone} 느낌의 ${category} 이름입니다.`
     },
     ja: {
@@ -64,8 +76,14 @@
       bestFor: "おすすめ用途",
       copy: "コピー",
       copied: "コピー済み",
+      copyAll: "すべてコピー",
+      copiedAll: "すべてコピー済み",
       favorite: "保存",
       saved: "保存済み",
+      quality: "実用スコア",
+      checks: ["言いやすい", "覚えやすい", "展開しやすい"],
+      search: "Web検索",
+      domain: "ドメイン確認",
       meaning: (name, tone, category, seed) => `${name}は、${seed}の雰囲気をもとにした${tone}印象の${category}向けネームです。`
     }
   }[lang] || {};
@@ -157,6 +175,8 @@
   const panel = document.querySelector("#generatorPanel");
   const results = document.querySelector("#resultGrid");
   const content = document.querySelector("#generatorContent");
+  const copyAllButton = document.querySelector("#copyAllButton");
+  let latestResults = [];
 
   function choice(items) {
     return items[Math.floor(Math.random() * items.length)];
@@ -212,6 +232,26 @@
     return `${key || first}${second}${attempt > 0 ? variant : ""}`;
   }
 
+  function scoreName(name) {
+    const length = Array.from(name).length;
+    let score = 72;
+    if (length >= 4 && length <= 12) score += 10;
+    if (length > 16) score -= 8;
+    if (!/[0-9]/.test(name)) score += 6;
+    if (new Set(Array.from(name.toLowerCase())).size >= Math.min(5, length)) score += 7;
+    return Math.max(58, Math.min(96, score));
+  }
+
+  function buildCheckList(name) {
+    const score = scoreName(name);
+    return ui.checks
+      .map((label, index) => {
+        const passed = index === 0 ? Array.from(name).length <= 14 : index === 1 ? score >= 78 : Array.from(name).length >= 4;
+        return `<li class="${passed ? "pass" : "review"}">${label}</li>`;
+      })
+      .join("");
+  }
+
   function buildResult(formData, index, usedNames) {
     const keyword = formData.get("keyword").toString();
     const style = formData.get("style").toString();
@@ -235,23 +275,36 @@
       category,
       meaning: ui.meaning(name, tone, category, seed),
       bestFor: localized.bestFor[generator.slug],
-      style
+      style,
+      score: scoreName(name)
     };
   }
 
   function renderResults(items) {
+    latestResults = items;
+    if (copyAllButton) {
+      copyAllButton.hidden = !items.length;
+      copyAllButton.textContent = ui.copyAll;
+    }
     results.innerHTML = "";
     items.forEach((item) => {
+      const encodedName = encodeURIComponent(item.name);
       const card = document.createElement("article");
       card.className = "result-card";
       card.innerHTML = `
         <p class="card-kicker">${item.category}</p>
-        <h3>${item.name}</h3>
+        <div class="result-title-row">
+          <h3>${item.name}</h3>
+          <span class="score-badge">${ui.quality}: ${item.score}</span>
+        </div>
         <p>${item.meaning}</p>
         <dl><dt>${ui.bestFor}</dt><dd>${item.bestFor}</dd><dt>${ui.style}</dt><dd>${item.style}</dd></dl>
+        <ul class="result-checks">${buildCheckList(item.name)}</ul>
         <div class="button-row">
           <button class="button ghost" type="button" data-copy="${item.name}">${ui.copy}</button>
           <button class="button ghost" type="button" data-favorite="${item.id}">${storage.isFavorite(item.id) ? ui.saved : ui.favorite}</button>
+          <a class="button ghost" href="https://www.google.com/search?q=${encodedName}" target="_blank" rel="noopener">${ui.search}</a>
+          <a class="button ghost" href="https://www.namecheap.com/domains/registration/results/?domain=${encodedName}" target="_blank" rel="noopener">${ui.domain}</a>
         </div>
       `;
       card.favoriteItem = item;
@@ -288,6 +341,16 @@
       const usedNames = new Set();
       renderResults(Array.from({ length: 10 }, (_, index) => buildResult(formData, index, usedNames)));
     });
+
+    if (copyAllButton) {
+      copyAllButton.textContent = ui.copyAll;
+      copyAllButton.addEventListener("click", async () => {
+        if (!latestResults.length) return;
+        const text = latestResults.map((item) => `${item.name} - ${item.meaning}`).join("\n");
+        await navigator.clipboard.writeText(text);
+        copyAllButton.textContent = ui.copiedAll;
+      });
+    }
 
     results.addEventListener("click", async (event) => {
       const copyButton = event.target.closest("[data-copy]");

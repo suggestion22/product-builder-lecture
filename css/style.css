@@ -374,10 +374,16 @@ h3 {
 
 .filter-row,
 .pill-row,
-.button-row {
+.button-row,
+.result-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+}
+
+.result-actions {
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .filter-button,
@@ -442,6 +448,51 @@ h3 {
   grid-template-columns: auto 1fr;
   gap: 6px 12px;
   color: var(--muted);
+}
+
+.result-title-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: start;
+}
+
+.score-badge {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  padding: 6px 10px;
+  color: var(--accent-dark);
+  background: var(--accent-soft);
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.result-checks {
+  margin: 16px 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  list-style: none;
+}
+
+.result-checks li {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.result-checks li::before {
+  margin-right: 8px;
+  font-weight: 900;
+}
+
+.result-checks .pass::before {
+  content: "OK";
+  color: var(--accent-dark);
+}
+
+.result-checks .review::before {
+  content: "!";
+  color: #b7791f;
 }
 
 .result-card dt {

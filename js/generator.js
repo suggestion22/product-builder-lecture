@@ -105,9 +105,9 @@
     content.innerHTML = `
       <section class="content-card">
         <h2>What is this generator?</h2>
-        <p>${generator.title} is a browser-based tool for quickly exploring names that match the ${generator.category.toLowerCase()} category. It uses curated mock patterns rather than an external AI API.</p>
+        <p>${generator.what}</p>
         <h2>How to use it</h2>
-        <p>Enter one or two keywords, choose a style, length, and tone, then generate a fresh list. Save strong options and compare them later.</p>
+        <p>${generator.how}</p>
         <h2>Tips for choosing a good name</h2>
         <ul>${generator.tips.map((tip) => `<li>${tip}</li>`).join("")}</ul>
         <h2>Example name styles</h2>
@@ -118,7 +118,7 @@
         <div class="pill-row">${generator.related.map((slug) => {
           const related = generators.find((item) => item.slug === slug);
           return `<a href="generator.html?type=${related.slug}">${related.title}</a>`;
-        }).join("")}</div>
+        }).join("")}<a href="naming-guide.html">Naming guide</a><a href="brand-name-checklist.html">Validation checklist</a></div>
       </section>
     `;
   }

@@ -404,6 +404,10 @@ h3 {
   margin: 26px 0 64px;
 }
 
+.content-card.article {
+  margin-top: 44px;
+}
+
 .content-card.small {
   margin: 0;
 }
@@ -420,6 +424,40 @@ h3 {
 
 .content-card li {
   margin-bottom: 10px;
+  color: var(--muted);
+}
+
+.content-card ol {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+th,
+td {
+  padding: 14px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  color: var(--ink);
+  background: var(--surface-soft);
+}
+
+td {
   color: var(--muted);
 }
 

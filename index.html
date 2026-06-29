@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로또 번호 추첨기</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <section class="draw-panel" aria-labelledby="page-title">
+      <div class="intro">
+        <p class="eyebrow">LOTTO 6/45</p>
+        <h1 id="page-title">로또 번호 추첨기</h1>
+        <p class="subcopy">1부터 45까지 중복 없이 6개 번호를 뽑고, 보너스 번호까지 한 번에 확인하세요.</p>
+      </div>
+
+      <div class="machine" aria-live="polite">
+        <div class="status" id="drawStatus">준비 완료</div>
+        <div class="balls" id="balls">
+          <span class="ball placeholder">?</span>
+          <span class="ball placeholder">?</span>
+          <span class="ball placeholder">?</span>
+          <span class="ball placeholder">?</span>
+          <span class="ball placeholder">?</span>
+          <span class="ball placeholder">?</span>
+          <span class="plus">+</span>
+          <span class="ball bonus placeholder">?</span>
+        </div>
+      </div>
+
+      <div class="controls" aria-label="추첨 설정">
+        <label class="field">
+          <span>게임 수</span>
+          <select id="gameCount">
+            <option value="1">1게임</option>
+            <option value="3">3게임</option>
+            <option value="5" selected>5게임</option>
+            <option value="10">10게임</option>
+          </select>
+        </label>
+        <button class="primary" id="drawButton" type="button">번호 추첨</button>
+        <button class="secondary" id="copyButton" type="button">결과 복사</button>
+      </div>
+    </section>
+
+    <section class="results" aria-labelledby="results-title">
+      <div class="section-heading">
+        <h2 id="results-title">추첨 결과</h2>
+        <button class="text-button" id="clearButton" type="button">기록 지우기</button>
+      </div>
+      <div class="ticket-list" id="ticketList">
+        <p class="empty">아직 추첨한 번호가 없습니다.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NameForge - Forge the perfect name.</title>
+  <meta name="description" content="NameForge helps you generate memorable names for games, creators, brands, fantasy worlds, pets, and more.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="index.html" aria-label="NameForge home">NameForge</a>
+    <button class="nav-toggle" type="button" aria-label="Open navigation">Menu</button>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="generators.html">Generators</a>
+      <a href="generators.html#categories">Categories</a>
+      <a href="favorites.html">Favorites</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">AI-style naming tools for every idea</p>
+      <h1>Forge the perfect name.</h1>
+      <p class="hero-copy">Generate unique names for games, creators, brands, fantasy worlds, pets, and more.</p>
+      <form class="hero-search" id="heroGenerateForm">
+        <label class="sr-only" for="heroKeyword">Name idea or keyword</label>
+        <input id="heroKeyword" name="keyword" type="search" placeholder="Try: neon, cozy, dragon, studio..." autocomplete="off">
+        <button class="button primary" type="submit">Generate</button>
+      </form>
+    </section>
+
+    <section class="section" id="categories" aria-labelledby="category-title">
+      <div class="section-heading">
+        <p class="eyebrow">Categories</p>
+        <h2 id="category-title">Start with a creative direction</h2>
+      </div>
+      <div class="category-grid">
+        <a class="category-card" href="generator.html?type=gaming"><span aria-hidden="true">🎮</span><strong>Gaming</strong><small>Cool handles and player tags</small></a>
+        <a class="category-card" href="generator.html?type=youtube"><span aria-hidden="true">▶</span><strong>Creator</strong><small>Channel and creator names</small></a>
+        <a class="category-card" href="generator.html?type=business"><span aria-hidden="true">◆</span><strong>Business</strong><small>Brandable startup names</small></a>
+        <a class="category-card" href="generator.html?type=fantasy"><span aria-hidden="true">✦</span><strong>Fantasy</strong><small>Worlds, characters, and lore</small></a>
+        <a class="category-card" href="generator.html?type=pet"><span aria-hidden="true">♡</span><strong>Lifestyle</strong><small>Friendly pet and project names</small></a>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="popular-title">
+      <div class="section-heading">
+        <p class="eyebrow">Popular generators</p>
+        <h2 id="popular-title">Name tools people use first</h2>
+      </div>
+      <div class="card-grid" id="popularGenerators"></div>
+    </section>
+
+    <section class="section steps" aria-labelledby="how-title">
+      <div class="section-heading">
+        <p class="eyebrow">How it works</p>
+        <h2 id="how-title">From rough idea to useful shortlist</h2>
+      </div>
+      <div class="step-grid">
+        <article class="step-card"><span>1</span><h3>Choose a category</h3><p>Pick the generator closest to your naming goal.</p></article>
+        <article class="step-card"><span>2</span><h3>Add your style</h3><p>Use keywords, tone, and length to guide the output.</p></article>
+        <article class="step-card"><span>3</span><h3>Generate and save names</h3><p>Copy favorites or save them locally for later review.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>NameForge helps creators move from blank page to strong name ideas.</p>
+    <nav aria-label="Footer navigation">
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </nav>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

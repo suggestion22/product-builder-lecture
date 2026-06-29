@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saved Favorites - NameForge</title>
+  <meta name="description" content="Review and manage your locally saved NameForge name ideas.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="index.html">NameForge</a>
+    <button class="nav-toggle" type="button" aria-label="Open navigation">Menu</button>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="generators.html">Generators</a>
+      <a href="generators.html#categories">Categories</a>
+      <a href="favorites.html">Favorites</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="page-shell">
+    <section class="page-hero">
+      <p class="eyebrow">Local shortlist</p>
+      <h1>Saved Favorites</h1>
+      <p>Your favorite names are stored only in this browser using localStorage.</p>
+    </section>
+    <section class="section compact">
+      <div class="result-grid" id="favoritesList"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>NameForge does not sync favorites to a server in this MVP.</p>
+    <nav aria-label="Footer navigation">
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </nav>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

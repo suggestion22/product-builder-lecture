@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact NameForge</title>
+  <meta name="description" content="Contact NameForge for partnership inquiries, product feedback, and naming platform questions.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="index.html">NameForge</a>
+    <button class="nav-toggle" type="button" aria-label="Open navigation">Menu</button>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="generators.html">Generators</a>
+      <a href="generators.html#categories">Categories</a>
+      <a href="favorites.html">Favorites</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="page-shell">
+    <section class="page-hero">
+      <p class="eyebrow">Contact</p>
+      <h1>Partnership inquiries</h1>
+      <p>Send a short message about partnerships, feedback, or collaboration opportunities.</p>
+    </section>
+    <section class="contact-layout">
+      <form class="contact-form" action="https://formspree.io/f/xdardkkk" method="POST">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" placeholder="Your name" required>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" required>
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="7" placeholder="Tell us what you would like to discuss." required></textarea>
+        <input type="hidden" name="_subject" value="New NameForge partnership inquiry">
+        <button class="button primary" type="submit">Send inquiry</button>
+      </form>
+      <aside class="content-card small">
+        <h2>What to include</h2>
+        <p>Share your company, audience, partnership idea, and the best way to reply. This MVP uses Formspree for simple email forwarding.</p>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>NameForge welcomes thoughtful partnership ideas.</p>
+    <nav aria-label="Footer navigation">
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </nav>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>

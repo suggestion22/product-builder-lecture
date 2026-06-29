@@ -31,7 +31,6 @@
       quality: "Quality score",
       checks: ["Easy to say", "Memorable", "Flexible"],
       search: "Search web",
-      domain: "Check domain",
       meaning: (name, tone, category, seed) => `${name} suggests a ${tone.toLowerCase()} ${category.toLowerCase()} identity shaped around ${seed} energy.`
     },
     ko: {
@@ -57,7 +56,6 @@
       quality: "실용 점수",
       checks: ["부르기 쉬움", "기억하기 좋음", "확장 가능"],
       search: "웹 검색",
-      domain: "도메인 확인",
       meaning: (name, tone, category, seed) => `${name}은 ${seed}의 분위기를 바탕으로 한 ${tone} 느낌의 ${category} 이름입니다.`
     },
     ja: {
@@ -83,7 +81,6 @@
       quality: "実用スコア",
       checks: ["言いやすい", "覚えやすい", "展開しやすい"],
       search: "Web検索",
-      domain: "ドメイン確認",
       meaning: (name, tone, category, seed) => `${name}は、${seed}の雰囲気をもとにした${tone}印象の${category}向けネームです。`
     }
   }[lang] || {};
@@ -172,6 +169,137 @@
     }
   }[lang] || {};
 
+  const contentLabels = {
+    en: {
+      what: "What is this generator?",
+      how: "How to use it",
+      tips: "Tips for choosing a good name",
+      examples: "Example name styles",
+      faq: "FAQ",
+      related: "Related generators",
+      namingGuide: "Naming guide",
+      checklist: "Validation checklist"
+    },
+    ko: {
+      what: "이 생성기는 무엇인가요?",
+      how: "사용 방법",
+      tips: "좋은 이름을 고르는 팁",
+      examples: "예시 이름 스타일",
+      faq: "자주 묻는 질문",
+      related: "관련 생성기",
+      namingGuide: "네이밍 가이드",
+      checklist: "검증 체크리스트"
+    },
+    ja: {
+      what: "このジェネレーターとは",
+      how: "使い方",
+      tips: "良い名前を選ぶコツ",
+      examples: "名前スタイルの例",
+      faq: "FAQ",
+      related: "関連ジェネレーター",
+      namingGuide: "ネーミングガイド",
+      checklist: "検証チェックリスト"
+    }
+  }[lang] || {};
+
+  const generatorCopy = {
+    en: {},
+    ko: {
+      gaming: {
+        title: "게이머태그 생성기",
+        description: "경쟁 게임, 클랜, 온라인 프로필에 어울리는 짧고 강한 이름을 만듭니다.",
+        placeholder: "섀도, 네온, 에이스, 스톰...",
+        what: "게이머태그 생성기는 로비, 점수판, 프로필 카드, 스트리밍 오버레이에서 또렷하게 보이는 짧은 이름에 초점을 맞춥니다. 힘 있는 소리와 간결한 음절을 우선합니다.",
+        how: "플레이 스타일, 좋아하는 요소, 역할, 분위기를 키워드로 입력하세요. 경쟁적인 이름은 강렬한 스타일을, 캐주얼한 프로필은 아케이드나 장난스러운 톤을 선택하면 좋습니다.",
+        tips: ["음성 채팅에서 부르기 쉬운 이름을 고르세요.", "무작위 숫자 나열은 피하세요.", "여러 게임에서 함께 사용할 수 있는 이름이 좋습니다."],
+        faqs: [["좋은 게이머태그의 기준은 무엇인가요?", "짧고 말하기 쉬우며 시각적으로 구분되고 플레이 스타일과 잘 맞는 이름이 좋습니다."], ["숫자를 넣어도 되나요?", "의미가 있을 때만 사용하세요. 무작위 숫자는 기억하기 어렵게 만듭니다."]]
+      },
+      youtube: {
+        title: "유튜브 이름 생성기",
+        description: "기억하기 쉽고 브랜드화하기 좋은 크리에이터형 채널 이름을 찾아보세요.",
+        placeholder: "여행, 테크, 코지, 금융...",
+        what: "유튜브 이름 생성기는 채널, 팟캐스트, 뉴스레터, 크리에이터 커뮤니티에 맞춘 이름을 제안합니다. 주제가 분명하면서도 향후 콘텐츠 확장 여지를 남기는 방향을 우선합니다.",
+        how: "여행, 기술, 금융, 뷰티, 게임, 학습처럼 주제 키워드를 입력하세요. 개인형, 스튜디오형, 편집형, 바이럴형 중 원하는 인상을 선택합니다.",
+        tips: ["콘텐츠가 확장되어도 어색하지 않은 이름을 고르세요.", "소리 내어 읽었을 때 자연스러운지 확인하세요.", "이미 유명한 크리에이터와 너무 비슷한 이름은 피하세요."],
+        faqs: [["채널 이름에 주제를 넣어야 하나요?", "도움이 될 수 있지만 콘텐츠 방향이 바뀔 가능성도 고려해야 합니다."], ["이름 길이는 어느 정도가 좋나요?", "보통 한 단어에서 세 단어 사이가 기억하기 쉽습니다."]]
+      },
+      business: {
+        title: "비즈니스 이름 생성기",
+        description: "스타트업, 제품, 스튜디오, 에이전시, 소규모 비즈니스를 위한 깔끔한 브랜드 이름을 생성합니다.",
+        placeholder: "금융, 디자인, 클라우드, 헬스...",
+        what: "비즈니스 이름 생성기는 제품, 에이전시, SaaS 아이디어, 숍, 독립 스튜디오에 어울리는 브랜드형 이름을 만듭니다. 발음, 신뢰감, 첫인상을 중요하게 다룹니다.",
+        how: "시장, 고객이 얻는 이점, 전달하고 싶은 감정을 키워드로 시작하세요. 전문 서비스는 프리미엄이나 미니멀 스타일이 좋고, 차별성이 필요하면 조어형을 선택하세요.",
+        tips: ["도메인과 상표 사용 가능성을 확인하세요.", "철자가 쉬운 이름을 우선하세요.", "사업 확장 가능성이 있다면 너무 좁은 이름은 피하세요."],
+        faqs: [["생성된 이름을 상업적으로 써도 되나요?", "아이디어 출발점으로 사용하되 공개 전 법적 사용 가능성을 직접 확인해야 합니다."], ["브랜드화하기 좋은 이름은 무엇인가요?", "기억하기 쉽고 발음 가능하며 차별적이고 향후 제품 확장에도 유연한 이름입니다."]]
+      },
+      fantasy: {
+        title: "판타지 이름 생성기",
+        description: "캐릭터, 장소, 클랜, 왕국, 유물에 어울리는 신화적이고 세계관 있는 이름을 만듭니다.",
+        placeholder: "달, 불씨, 숲, 고대...",
+        what: "판타지 이름 생성기는 작가, 게임 마스터, 세계관 제작자가 신화적 질감이 있는 이름을 만들 때 유용합니다. 인물, 지역, 세력, 유물, 주문, 가상 언어에 활용할 수 있습니다.",
+        how: "상징, 원소, 문화적 단서, 분위기를 입력하세요. 엘프풍이나 왕실 이름은 우아한 스타일을, 악역과 저주받은 장소는 어두운 스타일을 선택하면 좋습니다.",
+        tips: ["이름의 소리가 문화나 지역과 맞는지 확인하세요.", "연관된 장소에는 비슷한 어미를 반복해 일관성을 주세요.", "중요한 캐릭터 이름은 발음하기 쉽게 유지하세요."],
+        faqs: [["소설이나 게임에 써도 되나요?", "창작 영감으로 사용할 수 있지만 최종 사용 전 독창성을 검토하고 다듬는 것이 좋습니다."], ["이름들이 같은 세계관처럼 느껴지게 하려면?", "소리 패턴, 음절 끝, 명명 규칙을 그룹 안에서 반복하세요."]]
+      },
+      pet: {
+        title: "반려동물 이름 생성기",
+        description: "강아지, 고양이, 작은 반려동물과 귀여운 프로젝트에 어울리는 친근한 이름을 찾아보세요.",
+        placeholder: "복슬, 햇살, 작은, 코코아...",
+        what: "반려동물 이름 생성기는 따뜻하고 부르기 쉬우며 일상에서 자연스러운 이름에 초점을 맞춥니다. 강아지, 고양이, 토끼, 작은 반려동물, 친근한 사이드 프로젝트에 잘 맞습니다.",
+        how: "성격, 색깔, 음식, 계절, 크기 같은 단서를 입력하세요. 귀여운 느낌은 큐트나 푸드 스타일을, 차분한 반려동물은 부드러운 톤을 선택하세요.",
+        tips: ["매일 부르기 쉬운 이름을 고르세요.", "기본 명령어와 비슷하게 들리는 이름은 피하세요.", "며칠 동안 불러본 뒤 확정해도 좋습니다."],
+        faqs: [["어떤 반려동물 이름이 쓰기 쉬운가요?", "짧고 소리가 분명한 이름이 일상에서 가장 편합니다."], ["사람 이름을 써도 되나요?", "네. 사람 이름은 따뜻하거나 재미있거나 클래식한 느낌을 줄 수 있습니다."]]
+      }
+    },
+    ja: {
+      gaming: {
+        title: "ゲーマータグジェネレーター",
+        description: "対戦ゲーム、クラン、オンラインプロフィールに合う短く印象的な名前を作成します。",
+        placeholder: "シャドウ、ネオン、エース、ストーム...",
+        what: "ゲーマータグジェネレーターは、ロビー、スコアボード、プロフィール、配信画面で目立つ短い名前に重点を置きます。力強い響きと呼びやすい音を優先します。",
+        how: "プレイスタイル、好きな要素、役割、雰囲気をキーワードに入力してください。競技向けならシャープなスタイル、カジュアルならアーケードや遊び心のあるトーンが合います。",
+        tips: ["ボイスチャットで呼びやすい名前を選びましょう。", "意味のない数字の連続は避けましょう。", "複数のゲームで使える名前が便利です。"],
+        faqs: [["良いゲーマータグとは何ですか？", "短く、言いやすく、見分けやすく、プレイスタイルに合う名前です。"], ["数字を入れてもよいですか？", "意味がある場合だけ使いましょう。ランダムな数字は覚えにくくなります。"]]
+      },
+      youtube: {
+        title: "YouTube名前ジェネレーター",
+        description: "覚えやすく、ブランド化しやすいクリエイター向けチャンネル名を探せます。",
+        placeholder: "旅行、テック、コージー、金融...",
+        what: "YouTube名前ジェネレーターは、チャンネル、ポッドキャスト、ニュースレター、クリエイターコミュニティ向けの名前を提案します。テーマの明確さと将来の拡張性のバランスを重視します。",
+        how: "旅行、テック、金融、美容、ゲーム、学習などのテーマを入力してください。個人風、スタジオ風、編集風、バイラル風から印象を選びます。",
+        tips: ["コンテンツが広がっても使える名前を選びましょう。", "声に出して自然に聞こえるか確認しましょう。", "既存の有名クリエイターに近すぎる名前は避けましょう。"],
+        faqs: [["チャンネル名にジャンルを入れるべきですか？", "役立つ場合がありますが、将来の方向転換も考慮してください。"], ["長さはどのくらいがよいですか？", "一語から三語程度が覚えやすいことが多いです。"]]
+      },
+      business: {
+        title: "ビジネス名ジェネレーター",
+        description: "スタートアップ、商品、スタジオ、代理店、小規模ビジネス向けの洗練された名前を生成します。",
+        placeholder: "金融、デザイン、クラウド、ヘルス...",
+        what: "ビジネス名ジェネレーターは、商品、代理店、SaaS案、ショップ、独立スタジオに合うブランド向けの名前を作ります。発音、信頼感、第一印象を重視します。",
+        how: "市場、顧客への価値、伝えたい感情をキーワードにしてください。専門サービスにはプレミアムやミニマル、差別化したい場合は造語風が向いています。",
+        tips: ["ドメインと商標の利用可能性を確認しましょう。", "綴りやすい名前を優先しましょう。", "事業拡大の可能性がある場合は狭すぎる名前を避けましょう。"],
+        faqs: [["商用利用できますか？", "出発点として使い、公開前に法的な利用可能性を確認してください。"], ["ブランド化しやすい名前とは？", "覚えやすく、発音しやすく、独自性があり、将来の展開にも柔軟な名前です。"]]
+      },
+      fantasy: {
+        title: "ファンタジー名前ジェネレーター",
+        description: "キャラクター、場所、クラン、王国、アーティファクト向けの神話的な名前を作成します。",
+        placeholder: "月、火種、森、古代...",
+        what: "ファンタジー名前ジェネレーターは、作家、ゲームマスター、世界観制作者が神話的な質感の名前を作るためのツールです。人物、地域、勢力、遺物、呪文、架空言語に使えます。",
+        how: "象徴、元素、文化的な手がかり、雰囲気を入力してください。エルフ風や王族名には優雅なスタイル、悪役や呪われた場所にはダークなスタイルが合います。",
+        tips: ["音の響きが文化や地域に合うか確認しましょう。", "関連する場所には似た語尾を使うと統一感が出ます。", "重要なキャラクター名は発音しやすく保ちましょう。"],
+        faqs: [["小説やゲームに使えますか？", "創作の出発点として使えますが、最終利用前に独自性を確認して調整しましょう。"], ["同じ世界の名前らしくするには？", "音のパターン、語尾、命名ルールをグループ内で繰り返します。"]]
+      },
+      pet: {
+        title: "ペット名前ジェネレーター",
+        description: "犬、猫、小さなペット、かわいいプロジェクトに合う親しみやすい名前を探せます。",
+        placeholder: "ふわふわ、ひなた、小さい、ココア...",
+        what: "ペット名前ジェネレーターは、温かく呼びやすく、日常で使いやすい名前に重点を置きます。犬、猫、うさぎ、小さなペット、親しみやすいサイドプロジェクトに合います。",
+        how: "性格、色、食べ物、季節、サイズなどの手がかりを入力してください。かわいい印象ならキュートやフード系、落ち着いたペットならやさしいトーンが合います。",
+        tips: ["毎日呼びやすい名前を選びましょう。", "一般的な指示語に似た響きの名前は避けましょう。", "数日呼んでみてから決めても大丈夫です。"],
+        faqs: [["使いやすいペット名は？", "短く、音がはっきりした名前が日常では使いやすいです。"], ["人の名前を使ってもよいですか？", "はい。人名は温かさ、面白さ、クラシックな雰囲気を出せます。"]]
+      }
+    }
+  }[lang] || {};
+
   const panel = document.querySelector("#generatorPanel");
   const results = document.querySelector("#resultGrid");
   const content = document.querySelector("#generatorContent");
@@ -196,23 +324,48 @@
     return trimmed.replace(/\s+/g, "");
   }
 
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function getLocalizedGeneratorText(slug = generator.slug) {
+    const base = generators.find((item) => item.slug === slug) || generator;
+    const translated = generatorCopy[slug] || {};
+    return {
+      title: translated.title || base.title,
+      description: translated.description || base.description,
+      placeholder: translated.placeholder || base.placeholder,
+      what: translated.what || base.what,
+      how: translated.how || base.how,
+      tips: translated.tips || base.tips,
+      faqs: translated.faqs || base.faqs,
+      examples: base.examples
+    };
+  }
+
   function renderPanel() {
     const styles = localized.styles[generator.slug] || localized.styles.business;
     const tones = localized.tones[generator.slug] || localized.tones.business;
-    document.title = `${generator.title} - NameForge`;
+    const text = getLocalizedGeneratorText();
+    document.title = `${text.title} - NameForge`;
     panel.innerHTML = `
       <div>
-        <p class="eyebrow">${localized.categories[generator.category] || generator.category}</p>
-        <h1>${generator.title}</h1>
-        <p>${generator.description}</p>
+        <p class="eyebrow">${escapeHtml(localized.categories[generator.category] || generator.category)}</p>
+        <h1>${escapeHtml(text.title)}</h1>
+        <p>${escapeHtml(text.description)}</p>
       </div>
       <form class="generator-form" id="nameForm">
         <label for="keyword">${ui.keyword}</label>
-        <input id="keyword" name="keyword" type="text" value="${initialKeyword}" placeholder="${generator.placeholder}">
+        <input id="keyword" name="keyword" type="text" value="${escapeHtml(initialKeyword)}" placeholder="${escapeHtml(text.placeholder)}">
         <div class="form-grid">
-          <label>${ui.style}<select name="style">${styles.map((item) => `<option>${item}</option>`).join("")}</select></label>
+          <label>${ui.style}<select name="style">${styles.map((item) => `<option>${escapeHtml(item)}</option>`).join("")}</select></label>
           <label>${ui.length}<select name="length"><option value="Short">${ui.short}</option><option value="Medium" selected>${ui.medium}</option><option value="Long">${ui.long}</option></select></label>
-          <label>${ui.tone}<select name="tone">${tones.map((item) => `<option>${item}</option>`).join("")}</select></label>
+          <label>${ui.tone}<select name="tone">${tones.map((item) => `<option>${escapeHtml(item)}</option>`).join("")}</select></label>
         </div>
         <button class="button primary" type="submit">${ui.generate}</button>
       </form>
@@ -247,7 +400,7 @@
     return ui.checks
       .map((label, index) => {
         const passed = index === 0 ? Array.from(name).length <= 14 : index === 1 ? score >= 78 : Array.from(name).length >= 4;
-        return `<li class="${passed ? "pass" : "review"}">${label}</li>`;
+        return `<li class="${passed ? "pass" : "review"}">${escapeHtml(label)}</li>`;
       })
       .join("");
   }
@@ -292,19 +445,18 @@
       const card = document.createElement("article");
       card.className = "result-card";
       card.innerHTML = `
-        <p class="card-kicker">${item.category}</p>
+        <p class="card-kicker">${escapeHtml(item.category)}</p>
         <div class="result-title-row">
-          <h3>${item.name}</h3>
-          <span class="score-badge">${ui.quality}: ${item.score}</span>
+          <h3>${escapeHtml(item.name)}</h3>
+          <span class="score-badge">${escapeHtml(ui.quality)}: ${item.score}</span>
         </div>
-        <p>${item.meaning}</p>
-        <dl><dt>${ui.bestFor}</dt><dd>${item.bestFor}</dd><dt>${ui.style}</dt><dd>${item.style}</dd></dl>
+        <p>${escapeHtml(item.meaning)}</p>
+        <dl><dt>${escapeHtml(ui.bestFor)}</dt><dd>${escapeHtml(item.bestFor)}</dd><dt>${escapeHtml(ui.style)}</dt><dd>${escapeHtml(item.style)}</dd></dl>
         <ul class="result-checks">${buildCheckList(item.name)}</ul>
         <div class="button-row">
-          <button class="button ghost" type="button" data-copy="${item.name}">${ui.copy}</button>
-          <button class="button ghost" type="button" data-favorite="${item.id}">${storage.isFavorite(item.id) ? ui.saved : ui.favorite}</button>
-          <a class="button ghost" href="https://www.google.com/search?q=${encodedName}" target="_blank" rel="noopener">${ui.search}</a>
-          <a class="button ghost" href="https://www.namecheap.com/domains/registration/results/?domain=${encodedName}" target="_blank" rel="noopener">${ui.domain}</a>
+          <button class="button ghost" type="button" data-copy="${escapeHtml(item.name)}">${escapeHtml(ui.copy)}</button>
+          <button class="button ghost" type="button" data-favorite="${escapeHtml(item.id)}">${storage.isFavorite(item.id) ? escapeHtml(ui.saved) : escapeHtml(ui.favorite)}</button>
+          <a class="button ghost" href="https://www.google.com/search?q=${encodedName}" target="_blank" rel="noopener">${escapeHtml(ui.search)}</a>
         </div>
       `;
       card.favoriteItem = item;
@@ -313,23 +465,25 @@
   }
 
   function renderContent() {
+    const text = getLocalizedGeneratorText();
     content.innerHTML = `
       <section class="content-card">
-        <h2>What is this generator?</h2>
-        <p>${generator.what}</p>
-        <h2>How to use it</h2>
-        <p>${generator.how}</p>
-        <h2>Tips for choosing a good name</h2>
-        <ul>${generator.tips.map((tip) => `<li>${tip}</li>`).join("")}</ul>
-        <h2>Example name styles</h2>
-        <div class="pill-row">${generator.examples.map((example) => `<span>${example}</span>`).join("")}</div>
-        <h2>FAQ</h2>
-        ${generator.faqs.map(([question, answer]) => `<details><summary>${question}</summary><p>${answer}</p></details>`).join("")}
-        <h2>Related generators</h2>
+        <h2>${escapeHtml(contentLabels.what)}</h2>
+        <p>${escapeHtml(text.what)}</p>
+        <h2>${escapeHtml(contentLabels.how)}</h2>
+        <p>${escapeHtml(text.how)}</p>
+        <h2>${escapeHtml(contentLabels.tips)}</h2>
+        <ul>${text.tips.map((tip) => `<li>${escapeHtml(tip)}</li>`).join("")}</ul>
+        <h2>${escapeHtml(contentLabels.examples)}</h2>
+        <div class="pill-row">${text.examples.map((example) => `<span>${escapeHtml(example)}</span>`).join("")}</div>
+        <h2>${escapeHtml(contentLabels.faq)}</h2>
+        ${text.faqs.map(([question, answer]) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join("")}
+        <h2>${escapeHtml(contentLabels.related)}</h2>
         <div class="pill-row">${generator.related.map((slug) => {
           const related = generators.find((item) => item.slug === slug);
-          return `<a href="generator.html?type=${related.slug}">${related.title}</a>`;
-        }).join("")}<a href="naming-guide.html">Naming guide</a><a href="brand-name-checklist.html">Validation checklist</a></div>
+          const relatedText = getLocalizedGeneratorText(related.slug);
+          return `<a href="generator.html?type=${related.slug}">${escapeHtml(relatedText.title)}</a>`;
+        }).join("")}<a href="naming-guide.html">${escapeHtml(contentLabels.namingGuide)}</a><a href="brand-name-checklist.html">${escapeHtml(contentLabels.checklist)}</a></div>
       </section>
     `;
   }

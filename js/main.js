@@ -337,6 +337,54 @@
     }
   };
 
+  const inlineStrings = {
+    en: {
+      "about.whatTitle": "What NameForge is",
+      "about.whatBody": "NameForge helps users create memorable names for games, creators, brands, fantasy stories, pets, and other projects. It is built as a fast static website using HTML, CSS, and vanilla JavaScript.",
+      "about.techBody": "The current version uses mock generation logic in the browser. It does not use a backend, login, payment system, database, OpenAI API, or external AI API.",
+      "about.forTitle": "Who it is for",
+      "about.forBody": "Players can test gamertags, creators can explore channel names, founders can shortlist brand ideas, writers can name worlds and characters, and pet owners can find friendly everyday names.",
+      "about.directionTitle": "Product direction",
+      "about.directionBody": "The MVP is designed to feel like a real global service while keeping the technical foundation simple, portable, and easy to deploy on static hosts such as Cloudflare Pages or GitHub Pages.",
+      "about.editorialTitle": "Editorial approach",
+      "about.editorialBody": "NameForge combines lightweight browser tools with original naming guidance. The guides explain how to evaluate clarity, sound, audience fit, domain checks, and practical naming tradeoffs so visitors can make better decisions instead of only clicking a generator.",
+      "about.transparencyTitle": "Transparency",
+      "about.transparencyBody": "This early version does not display ads, sell accounts, process payments, or use an external AI API. If those features are added later, the product pages and policies should be updated before release.",
+      "contact.includeTitle": "What to include",
+      "contact.includeBody": "Share your company, audience, partnership idea, and the best way to reply. This MVP uses Formspree for simple email forwarding."
+    },
+    ko: {
+      "about.whatTitle": "NameForge 소개",
+      "about.whatBody": "NameForge는 게임, 크리에이터, 브랜드, 판타지 이야기, 반려동물, 기타 프로젝트에 어울리는 기억하기 쉬운 이름을 만들도록 돕는 서비스입니다. HTML, CSS, 바닐라 JavaScript만 사용하는 빠른 정적 웹사이트로 구성되어 있습니다.",
+      "about.techBody": "현재 버전은 브라우저 안에서 작동하는 모의 생성 로직을 사용합니다. 백엔드, 로그인, 결제, 데이터베이스, OpenAI API 또는 외부 AI API를 사용하지 않습니다.",
+      "about.forTitle": "누구를 위한 서비스인가요",
+      "about.forBody": "플레이어는 게이머태그를 테스트하고, 크리에이터는 채널 이름을 탐색하며, 창업자는 브랜드 후보를 정리할 수 있습니다. 작가는 세계관과 캐릭터 이름을 만들고, 반려동물 보호자는 일상에서 부르기 좋은 이름을 찾을 수 있습니다.",
+      "about.directionTitle": "제품 방향",
+      "about.directionBody": "이 MVP는 실제 글로벌 서비스처럼 느껴지도록 설계했지만, 기술 기반은 단순하고 이식 가능하며 Cloudflare Pages나 GitHub Pages 같은 정적 호스팅에 쉽게 배포할 수 있도록 유지했습니다.",
+      "about.editorialTitle": "콘텐츠 원칙",
+      "about.editorialBody": "NameForge는 가벼운 브라우저 도구와 독창적인 네이밍 가이드를 함께 제공합니다. 가이드는 명확성, 발음, 대상 고객 적합성, 도메인 확인, 실무적 선택 기준을 설명해 방문자가 단순 생성 이상의 판단을 할 수 있게 돕습니다.",
+      "about.transparencyTitle": "투명성",
+      "about.transparencyBody": "이 초기 버전은 광고 표시, 계정 판매, 결제 처리, 외부 AI API 사용을 하지 않습니다. 해당 기능이 나중에 추가되면 공개 전에 제품 페이지와 정책 문서를 함께 업데이트해야 합니다.",
+      "contact.includeTitle": "함께 적어주시면 좋은 내용",
+      "contact.includeBody": "회사 또는 프로젝트명, 대상 고객, 제휴 아이디어, 회신받기 좋은 연락 방법을 적어 주세요. 이 MVP는 간단한 이메일 전달을 위해 Formspree를 사용합니다."
+    },
+    ja: {
+      "about.whatTitle": "NameForgeとは",
+      "about.whatBody": "NameForgeは、ゲーム、クリエイター、ブランド、ファンタジー作品、ペット、その他のプロジェクトに合う覚えやすい名前づくりを支援するサービスです。HTML、CSS、バニラJavaScriptだけで作られた高速な静的サイトです。",
+      "about.techBody": "現在のバージョンは、ブラウザ内で動くモック生成ロジックを使用しています。バックエンド、ログイン、決済、データベース、OpenAI API、外部AI APIは使用していません。",
+      "about.forTitle": "対象ユーザー",
+      "about.forBody": "プレイヤーはゲーマータグを試し、クリエイターはチャンネル名を探し、創業者はブランド候補を整理できます。作家は世界やキャラクターの名前を作り、ペットの飼い主は日常で呼びやすい名前を見つけられます。",
+      "about.directionTitle": "プロダクトの方向性",
+      "about.directionBody": "このMVPは実際のグローバルサービスのように感じられることを目指しつつ、技術基盤はシンプルで移植しやすく、Cloudflare PagesやGitHub Pagesなどの静的ホスティングに簡単に展開できるようにしています。",
+      "about.editorialTitle": "編集方針",
+      "about.editorialBody": "NameForgeは軽量なブラウザツールと独自のネーミングガイドを組み合わせています。ガイドでは明確さ、音の響き、読者との相性、ドメイン確認、実務的な判断基準を説明し、生成結果を選ぶ力を高めます。",
+      "about.transparencyTitle": "透明性",
+      "about.transparencyBody": "この初期版では、広告表示、アカウント販売、決済処理、外部AI APIの使用は行っていません。将来それらの機能を追加する場合は、公開前に製品ページとポリシー文書を更新する必要があります。",
+      "contact.includeTitle": "記入するとよい内容",
+      "contact.includeBody": "会社またはプロジェクト名、対象ユーザー、提携アイデア、返信しやすい連絡方法を共有してください。このMVPでは簡単なメール転送にFormspreeを使用しています。"
+    }
+  };
+
   function getLanguage() {
     const saved = localStorage.getItem(LANG_KEY);
     if (supportedLanguages.includes(saved)) return saved;
@@ -430,6 +478,14 @@
       if (!node) return;
       if (attr) node.setAttribute(attr, value);
       else node.textContent = value;
+    });
+  }
+
+  function translateInlineText() {
+    const strings = inlineStrings[getLanguage()] || inlineStrings.en;
+    document.querySelectorAll("[data-i18n]").forEach((node) => {
+      const value = strings[node.dataset.i18n];
+      if (value) node.textContent = value;
     });
   }
 
@@ -571,6 +627,7 @@
   setupLanguage();
   translateNavigation();
   translatePageText();
+  translateInlineText();
   translateStaticCards();
   renderPopular();
   renderGeneratorList();

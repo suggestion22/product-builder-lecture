@@ -95,6 +95,7 @@
         fantasy: ["ael", "dor", "wyn", "thorn", "vale", "myr", "ember", "loria"],
         pet: ["mochi", "biscuit", "lulu", "pip", "coco", "sunny", "bean", "nori"]
       },
+      variants: ["Prime", "Arc", "Verse", "Lab", "Wave", "Path", "Hive", "Works"],
       suffixes: ["X", "ly", "io", ""]
     },
     ko: {
@@ -121,6 +122,7 @@
         fantasy: ["아엘", "도르", "윈", "가온", "루나", "미르", "엘라", "아린"],
         pet: ["모찌", "보리", "루루", "콩이", "초코", "두부", "나리", "해피"]
       },
+      variants: ["프라임", "아크", "웨이브", "랩", "하이브", "루트", "포인트", "웍스"],
       suffixes: ["", "온", "아", "빛"]
     },
     ja: {
@@ -147,6 +149,7 @@
         fantasy: ["アエル", "ドル", "ウィン", "ルナ", "ミル", "エラ", "アリン", "セラ"],
         pet: ["モチ", "ココ", "ルル", "マロン", "ソラ", "ナナ", "ポポ", "ハル"]
       },
+      variants: ["プライム", "アーク", "ウェーブ", "ラボ", "ハイブ", "ルート", "ポイント", "ワークス"],
       suffixes: ["", "ア", "ン", "ル"]
     }
   }[lang] || {};
@@ -196,24 +199,33 @@
     `;
   }
 
-  function makeName(keyword, style, length) {
+  function makeName(keyword, style, length, attempt = 0) {
     const bank = localized.banks[generator.slug] || localized.banks.business;
     const key = normalizeKeyword(keyword);
     const first = normalizeKeyword(choice(bank));
     const second = normalizeKeyword(choice(bank));
     const styleWord = normalizeKeyword(style);
+    const variant = normalizeKeyword(localized.variants[attempt % localized.variants.length]);
 
-    if (length === "Short") return `${key || first}${choice(localized.suffixes)}`;
-    if (length === "Long") return `${key || first}${styleWord}${second}`;
-    return `${key || first}${second}`;
+    if (length === "Short") return `${key || first}${attempt > 0 ? variant : choice(localized.suffixes)}`;
+    if (length === "Long") return `${key || first}${styleWord}${second}${attempt > 0 ? variant : ""}`;
+    return `${key || first}${second}${attempt > 0 ? variant : ""}`;
   }
 
-  function buildResult(formData, index) {
+  function buildResult(formData, index, usedNames) {
     const keyword = formData.get("keyword").toString();
     const style = formData.get("style").toString();
     const length = formData.get("length").toString();
     const tone = formData.get("tone").toString();
-    const name = makeName(keyword, style, length);
+    let name = "";
+    let attempt = 0;
+
+    do {
+      name = makeName(keyword, style, length, attempt);
+      attempt += 1;
+    } while (usedNames.has(name) && attempt < 40);
+
+    usedNames.add(name);
     const category = localized.categories[generator.category] || generator.category;
     const seed = keyword.trim() || style;
 
@@ -273,7 +285,8 @@
     panel.querySelector("#nameForm").addEventListener("submit", (event) => {
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
-      renderResults(Array.from({ length: 10 }, (_, index) => buildResult(formData, index)));
+      const usedNames = new Set();
+      renderResults(Array.from({ length: 10 }, (_, index) => buildResult(formData, index, usedNames)));
     });
 
     results.addEventListener("click", async (event) => {

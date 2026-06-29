@@ -5,6 +5,66 @@
   const type = params.get("type") || "gaming";
   const generator = generators.find((item) => item.slug === type) || generators[0];
   const initialKeyword = params.get("q") || "";
+  const lang = localStorage.getItem("nameforge-language") || "en";
+  const copy = {
+    en: {
+      keyword: "Keyword",
+      style: "Style",
+      length: "Length",
+      tone: "Tone",
+      short: "Short",
+      medium: "Medium",
+      long: "Long",
+      generate: "Generate 10 names",
+      resultsEyebrow: "Generated ideas",
+      resultsTitle: "Results",
+      empty: "Add a keyword and generate names to see ideas here.",
+      favorites: "View favorites",
+      bestFor: "Best for",
+      copy: "Copy",
+      copied: "Copied",
+      favorite: "Favorite",
+      saved: "Saved"
+    },
+    ko: {
+      keyword: "키워드",
+      style: "스타일",
+      length: "길이",
+      tone: "톤",
+      short: "짧게",
+      medium: "보통",
+      long: "길게",
+      generate: "이름 10개 생성",
+      resultsEyebrow: "생성된 아이디어",
+      resultsTitle: "결과",
+      empty: "키워드를 입력하고 이름을 생성하면 결과가 표시됩니다.",
+      favorites: "즐겨찾기 보기",
+      bestFor: "추천 용도",
+      copy: "복사",
+      copied: "복사됨",
+      favorite: "저장",
+      saved: "저장됨"
+    },
+    ja: {
+      keyword: "キーワード",
+      style: "スタイル",
+      length: "長さ",
+      tone: "トーン",
+      short: "短め",
+      medium: "標準",
+      long: "長め",
+      generate: "名前を10件生成",
+      resultsEyebrow: "生成されたアイデア",
+      resultsTitle: "結果",
+      empty: "キーワードを入力して生成すると結果が表示されます。",
+      favorites: "お気に入りを見る",
+      bestFor: "おすすめ用途",
+      copy: "コピー",
+      copied: "コピー済み",
+      favorite: "保存",
+      saved: "保存済み"
+    }
+  }[lang] || {};
 
   const panel = document.querySelector("#generatorPanel");
   const results = document.querySelector("#resultGrid");
@@ -41,14 +101,14 @@
         <p>${generator.description}</p>
       </div>
       <form class="generator-form" id="nameForm">
-        <label for="keyword">Keyword</label>
+        <label for="keyword">${copy.keyword}</label>
         <input id="keyword" name="keyword" type="text" value="${initialKeyword}" placeholder="${generator.placeholder}">
         <div class="form-grid">
-          <label>Style<select name="style">${generator.styles.map((item) => `<option>${item}</option>`).join("")}</select></label>
-          <label>Length<select name="length"><option>Short</option><option selected>Medium</option><option>Long</option></select></label>
-          <label>Tone<select name="tone">${generator.tones.map((item) => `<option>${item}</option>`).join("")}</select></label>
+          <label>${copy.style}<select name="style">${generator.styles.map((item) => `<option>${item}</option>`).join("")}</select></label>
+          <label>${copy.length}<select name="length"><option value="Short">${copy.short}</option><option value="Medium" selected>${copy.medium}</option><option value="Long">${copy.long}</option></select></label>
+          <label>${copy.tone}<select name="tone">${generator.tones.map((item) => `<option>${item}</option>`).join("")}</select></label>
         </div>
-        <button class="button primary" type="submit">Generate 10 names</button>
+        <button class="button primary" type="submit">${copy.generate}</button>
       </form>
     `;
   }
@@ -90,10 +150,10 @@
         <p class="card-kicker">${item.category}</p>
         <h3>${item.name}</h3>
         <p>${item.meaning}</p>
-        <dl><dt>Best for</dt><dd>${item.bestFor}</dd><dt>Style</dt><dd>${item.style}</dd></dl>
+        <dl><dt>${copy.bestFor}</dt><dd>${item.bestFor}</dd><dt>${copy.style}</dt><dd>${item.style}</dd></dl>
         <div class="button-row">
-          <button class="button ghost" type="button" data-copy="${item.name}">Copy</button>
-          <button class="button ghost" type="button" data-favorite="${item.id}">${storage.isFavorite(item.id) ? "Saved" : "Favorite"}</button>
+          <button class="button ghost" type="button" data-copy="${item.name}">${copy.copy}</button>
+          <button class="button ghost" type="button" data-favorite="${item.id}">${storage.isFavorite(item.id) ? copy.saved : copy.favorite}</button>
         </div>
       `;
       card.favoriteItem = item;
@@ -131,10 +191,10 @@
     });
 
     results.addEventListener("click", async (event) => {
-      const copy = event.target.closest("[data-copy]");
-      if (copy) {
-        await navigator.clipboard.writeText(copy.dataset.copy);
-        copy.textContent = "Copied";
+      const copyButton = event.target.closest("[data-copy]");
+      if (copyButton) {
+        await navigator.clipboard.writeText(copyButton.dataset.copy);
+        copyButton.textContent = copy.copied;
         return;
       }
       const favorite = event.target.closest("[data-favorite]");
@@ -149,4 +209,8 @@
   renderPanel();
   renderContent();
   setupEvents();
+  document.querySelector("#results-title").textContent = copy.resultsTitle;
+  document.querySelector("[aria-labelledby='results-title'] .eyebrow").textContent = copy.resultsEyebrow;
+  document.querySelector(".section-heading.split .text-link").textContent = copy.favorites;
+  document.querySelector("#resultGrid .empty-state").textContent = copy.empty;
 })();

@@ -468,10 +468,42 @@ h3 {
   gap: 14px;
 }
 
+.generator-form.enhanced {
+  align-content: start;
+}
+
 .generator-form label,
 .contact-form label {
   color: var(--muted);
   font-weight: 750;
+}
+
+.form-field {
+  display: grid;
+  gap: 7px;
+}
+
+.form-field small {
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.form-grid.two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.check-control {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.check-control input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
 }
 
 .generator-form input,
@@ -480,6 +512,38 @@ h3 {
 .contact-form textarea {
   min-height: 48px;
   padding: 0 14px;
+}
+
+.generator-intro {
+  min-width: 0;
+}
+
+.quick-samples {
+  margin-top: 22px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.quick-samples span {
+  flex: 1 1 100%;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.quick-samples button {
+  min-height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0 12px;
+  color: var(--accent-dark);
+  background: var(--surface-soft);
+  font-weight: 750;
+  cursor: pointer;
 }
 
 .contact-form textarea {
